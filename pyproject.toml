@@ -17,3 +17,9 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[project.optional-dependencies]
+  dev = ["ruff", "pytest"]
+  
+[tool.ruff]
+line-length = 88
