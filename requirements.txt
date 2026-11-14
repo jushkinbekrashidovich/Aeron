@@ -1,3 +1,3 @@
 # AERON dependencies.
 # Intentionally empty for now: each package is added in the commit that first
-# needs it (see docs/development/roadmap.md), with a reason in the commit message.
+# needs it, with a reason in the commit message.

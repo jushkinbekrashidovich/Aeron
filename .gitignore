@@ -1,6 +1,7 @@
 # --- Private, local-only project files ---
 overview.md
 tasks.md
+docs/development/roadmap.md
 
 # --- Secrets and local configuration ---
 .env
