@@ -1,19 +1,22 @@
 # Research questions
 
-Each question is answered with evidence from this repository's code, or reported as unanswerable with the reason.
 
-| ID | Question | Phase |
-|---|---|---|
-| RQ0 | What air-quality and weather data exist for Tashkent, and is their coverage and quality sufficient for forecasting? | 1 |
-| RQ1 | How accurately can PM2.5 be predicted at 24, 48 and 72 hour horizons? | 3 |
-| RQ2 | How much do meteorological features improve forecasts over PM2.5 history alone? | 3 |
-| RQ3 | Which historical windows (lags, rolling statistics) are most useful? | 3 |
-| RQ4 | How do tree-based models compare with simple baselines, and with LSTM/GRU if those are justified? | 3 |
-| RQ5 | How well do models generalize to unseen time periods, including other seasons? | 3 |
-| RQ6 | How does accuracy vary across stations? | 4 |
-| RQ7 | How reliable are forecasts during high-pollution episodes? | 4 |
-| RQ8 | Which features drive predictions, and are the explanations stable? | 4 |
-| RQ9 | What seasonal, daily and weather-related patterns appear in historical PM2.5? | 2 |
+Each question is answered with evidence from this repository's code, or reported as unanswerable with the reason. 
+Questions are divided into 2 parts:
+ - Main questions: The project answers with key features
+ - Optional questions: If time allows, and if we can find data. We will add analysis to answer these questions
+
+MAIN:
+RQ1: What air quality and weather related data exist for Tashkent (Uzbekistan), and are they relevant and sufficient for forecasting?
+RQ2: Do 24 hour PM2.5 forecasts beat a persistence baseline, and by how much (MAE, RMSE)?
+RQ3: How much do meteorological features improve forecasts over PM2.5 history alone? 
+RQ4: What seasonal, daily and weather-related patterns appear in historical PM2.5? 
+
+Optional:
+RQ5: How well do models generalize to unseen time periods, including other seasons? 
+RQ6: How does accuracy vary across stations? 
+RQ7: How reliable are forecasts during high-pollution episodes? 
+RQ8: Which features contribute most to the model's 24 hour forecasts, beyond recent PM2.5 history? (Only meaningful if RQ2 shows the model beats the baseline. Describes the model, not causes.)
 
 ## Hypotheses
 
