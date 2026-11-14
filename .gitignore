@@ -1,0 +1,96 @@
+# --- Private, local-only project files ---
+overview.md
+tasks.md
+
+# --- Secrets and local configuration ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+credentials*.json
+
+# --- Data (large/raw/derived data is never committed) ---
+data/raw/*
+data/interim/*
+data/processed/*
+data/external/*
+!data/*/.gitkeep
+# Small, legally shareable samples are allowed (see data/samples/README.md)
+!data/samples/
+!data/samples/**
+# Large binary data formats anywhere else
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.nc
+*.tif
+*.tiff
+!data/samples/**/*.parquet
+!data/samples/**/*.nc
+
+# --- Models and experiment outputs ---
+models/*
+!models/README.md
+*.pkl
+*.joblib
+*.pt
+*.pth
+*.onnx
+*.ckpt
+experiments/results/
+mlruns/
+mlartifacts/
+wandb/
+lightning_logs/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.python-version
+.tox/
+.nox/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# --- Databases and local services ---
+*.sqlite
+*.sqlite3
+*.db
+pgdata/
+postgres_data/
+airflow/logs/
+docker-compose.override.yml
+
+# --- Logs and temp ---
+*.log
+tmp/
+temp/
+
+# --- Node / frontend ---
+node_modules/
+.next/
+out/
+
+# --- Editors and OS ---
+.DS_Store
+.idea/
+.vscode/
+*.swp
+Thumbs.db
