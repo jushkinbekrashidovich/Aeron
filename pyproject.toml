@@ -12,14 +12,14 @@ license = { text = "MIT" }
 # Runtime dependencies are added when the code that needs them is written.
 dependencies = []
 
+[project.optional-dependencies]
+dev = ["ruff", "pytest"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
-[project.optional-dependencies]
-  dev = ["ruff", "pytest"]
-  
 [tool.ruff]
 line-length = 88
