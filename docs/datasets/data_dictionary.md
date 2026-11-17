@@ -1,6 +1,6 @@
 # Data dictionary
 
-Status: draft (Phase 1). Describes the raw files currently produced by the download scripts in `src/aeron/`. A processed, merged dataset has not been built yet (Phase 2). Raw files are written to `data/raw/` and are not committed. Retrieval date for everything below: 2026-11-17. Sources, licences and coverage are in [data sources](data_sources.md), and known problems are in [data quality](data_quality.md).
+Status: draft (Phase 1). Describes the raw files currently produced by the download scripts in `src/aeron/`. A processed, merged dataset has not been built yet (Phase 2). Raw files are written to `data/raw/` by `python scripts/download_data.py` and are not committed. The subfolders `_months` (OpenAQ) and `_cache` (Open-Meteo) hold the per-block files that make downloads resumable, and the merged files below are rebuilt from them. Retrieval date for everything below: 2026-11-17. Sources, licences and coverage are in [data sources](data_sources.md), and known problems are in [data quality](data_quality.md).
 
 ## Conventions
 
@@ -10,7 +10,7 @@ Status: draft (Phase 1). Describes the raw files currently produced by the downl
 
 ## `data/raw/openaq/<name>_hourly.csv`
 
-Produced by `src/aeron/openaq_download.py`. `metadata.json` in the same folder records retrieval time, location and sensor ids.
+Produced by `src/aeron/ingest/openaq.py`. `metadata.json` in the same folder records retrieval time, location and sensor ids.
 
 | File | OpenAQ location | Sensor | Quantity | Unit |
 |---|---|---|---|---|
@@ -31,7 +31,7 @@ Station coordinates: US Diplomatic Post 41.3672 N, 69.2725 E. Sputnik-4 41.2047 
 
 ## `data/raw/openmeteo/era5_tashkent_hourly.csv`
 
-Produced by `src/aeron/openmeteo_download.py` from the Open-Meteo historical weather API (ERA5 reanalysis). Location 41.3672 N, 69.2725 E (the nearest grid cell is used, so values are not point measurements). 70,368 hourly rows from 2018-11-01 00:00 to 2026-11-10 23:00, no missing values.
+Produced by `src/aeron/ingest/openmeteo.py` from the Open-Meteo historical weather API (ERA5 reanalysis). Location 41.3672 N, 69.2725 E (the nearest grid cell is used, so values are not point measurements). 70,368 hourly rows from 2018-11-01 00:00 to 2026-11-10 23:00, no missing values.
 
 | Column | Unit | Meaning |
 |---|---|---|
@@ -48,7 +48,7 @@ Produced by `src/aeron/openmeteo_download.py` from the Open-Meteo historical wea
 
 ## `data/raw/openmeteo/era5_extra_tashkent_hourly.csv`
 
-Produced by `src/aeron/openmeteo_extra_download.py`, same source and location, 70,368 rows.
+Produced by `src/aeron/ingest/openmeteo.py`, same source and location, 70,368 rows.
 
 | Column | Unit | Meaning | Missing |
 |---|---|---|---|
@@ -60,7 +60,7 @@ Produced by `src/aeron/openmeteo_extra_download.py`, same source and location, 7
 
 ## `data/raw/openmeteo/forecast_previous_runs_hourly.csv`
 
-Produced by `src/aeron/openmeteo_forecast_download.py` from the Open-Meteo Previous Runs API. 9,792 hourly rows from 2024-01-19 to 2025-03-01 (UTC) for the same location.
+Produced by `src/aeron/ingest/openmeteo.py` from the Open-Meteo Previous Runs API. 9,792 hourly rows from 2024-01-19 to 2025-03-01 (UTC) for the same location.
 
 Column names have the form `<variable>_previous_day<N>` for N = 2, 3 and 4. Each is the forecast for that hour that was issued about N days before it. Variables: `temperature_2m`, `relative_humidity_2m`, `precipitation`, `surface_pressure`, `cloud_cover`, `wind_speed_10m` (km/h), `wind_direction_10m`, `wind_gusts_10m` (km/h), `shortwave_radiation` (W/m2), `vapour_pressure_deficit` (kPa), `pressure_msl` (hPa). Units match the ERA5 files. Between 0.4% and 0.9% of cells in each column are empty (see data quality).
 

@@ -1,6 +1,6 @@
 import pytest
 
-from aeron import config, openaq_download
+from aeron import config
 
 
 def test_config_loads_and_has_primary_series():
@@ -22,13 +22,19 @@ def test_target_settings():
     assert cfg["time"]["utc_offset_hours"] == 5
 
 
-def test_config_matches_current_download_script():
-    """Guard while the scripts still hard-code their series (until task 2.1.2)."""
-    from_config = [
-        (s.name, s.location_id, s.sensor_id, s.parameter, s.start)
-        for s in config.openaq_series()
-    ]
-    assert from_config == list(openaq_download.SENSORS)
+def test_series_names_and_ids_are_unique():
+    series = config.openaq_series()
+    assert len({s.name for s in series}) == len(series)
+    assert len({s.sensor_id for s in series}) == len(series)
+
+
+def test_forecast_variables_have_leads_covering_all_target_days():
+    cfg = config.load_config()
+    leads = cfg["target"]["lead_days"]
+    previous = cfg["openmeteo"]["forecast"]["previous_days"]
+    assert previous == [
+        k + 1 for k in leads
+    ]  # lead k uses the forecast issued k + 1 days earlier
 
 
 def test_secret_from_environment(monkeypatch, tmp_path):

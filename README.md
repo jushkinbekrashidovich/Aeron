@@ -15,6 +15,16 @@ Air pollution analysis and PM2.5 forecasting for Tashkent, Uzbekistan.
 - [Mendeley Data](https://data.mendeley.com/datasets/nmpz7jds4f/2): a summer 2024 station dataset (CC BY 4.0)
 - [Tashkent Open Data](https://opendata.tashkent.uz/): city stations (download currently fails)
 
+## Getting the data
+
+```
+pip install -e ".[dev]"
+cp .env.example .env             # add your free OpenAQ key
+python scripts/download_data.py
+```
+
+Downloads are resumable. Settings are in `configs/sources.toml`. Raw data is written to `data/raw/` and is not committed. See [data sources](docs/datasets/data_sources.md).
+
 ## License
 
 [MIT](LICENSE)

@@ -2,7 +2,7 @@
 
 Status: preliminary. One station, 139 to 145 test days from two winters, fixed settings, one run. Follows from the [daily note](preliminary_daily.md), which used observed weather for the target day (a perfect forecast) and found a daily-mean MAE of 16 to 19 ug/m3. This note replaces that with archived forecasts.
 
-Code: `src/aeron/daily_forecast_weather.py`. Data: Open-Meteo Previous Runs API, retrieved 2026-11-17 (`src/aeron/openmeteo_forecast_download.py`).
+Code: `src/aeron/daily_forecast_weather.py`. Data: Open-Meteo Previous Runs API, retrieved 2026-11-17 (`src/aeron/ingest/openmeteo.py`).
 
 ## Setup
 

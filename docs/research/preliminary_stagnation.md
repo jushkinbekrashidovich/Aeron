@@ -2,7 +2,7 @@
 
 Status: preliminary. One station, fixed settings, one run, no intervals. All weather inputs are observed (ERA5) at or before the target hour, so results are an upper bound for operational skill. Same winter rolling blocks (winters 2020-21 to 2024-25, expanding window) as the [rolling evaluation](preliminary_rolling_eval.md) and the [upper-tail note](preliminary_upper_tail.md), which found that very high PM2.5 is strongly underpredicted.
 
-Code: `src/aeron/stagnation_experiment.py`. Data: `src/aeron/openmeteo_extra_download.py` (ERA5 via Open-Meteo, retrieved 2026-11-17).
+Code: `src/aeron/stagnation_experiment.py`. Data: `src/aeron/ingest/openmeteo.py` (ERA5 via Open-Meteo, retrieved 2026-11-17).
 
 ## Question
 

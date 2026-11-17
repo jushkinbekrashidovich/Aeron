@@ -41,7 +41,7 @@ Winter is November to February. Number of test rows: 8,786 (24 h), 8,689 (48 h),
 
 ## Forecast weather instead of observed weather
 
-Code: `src/aeron/gbm_forecast_weather.py`; data from `src/aeron/openmeteo_forecast_download.py` (Open-Meteo Previous Runs API, not committed).
+Code: `src/aeron/gbm_forecast_weather.py`; data from `src/aeron/ingest/openmeteo.py` (Open-Meteo Previous Runs API, not committed).
 
 - Variant C uses the same model as B, trained on ERA5 weather before 2024-01-01, but at test time takes the archived forecast for the target hour. The forecast issued 2, 3 and 4 days before the valid time is used for leads of 24, 48 and 72 h. That leaves a margin of about one day for model run publication, so it is conservative: forecasts issued one day closer would be more accurate.
 - Test rows are targets from 2024-01-19 to 2025-02-25, the period with archived multi-variable forecasts. All methods use identical rows. Winter test rows are about 3,300 to 3,400 hours (late Jan to Feb 2024, Nov and Dec 2024, Jan and Feb 2025).
