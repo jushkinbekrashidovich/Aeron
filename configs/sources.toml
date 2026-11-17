@@ -1,0 +1,109 @@
+# Data sources, stations, date ranges and request parameters for AERON.
+# One place for values that the download scripts currently hard-code.
+# Secrets (API keys) are NOT stored here: see .env.example.
+
+[time]
+# Asia/Tashkent has no daylight saving time.
+utc_offset_hours = 5
+# A local day needs at least this many observed hours to have a daily mean.
+min_hours_for_daily_mean = 18
+
+[openaq]
+api_url = "https://api.openaq.org/v3"
+# Months are requested one at a time because wide ranges time out.
+page_limit = 200
+request_pause_seconds = 1.1  # stay under 60 requests per minute
+
+[[openaq.series]]
+name = "us_embassy_pm25"
+location_id = 8881
+sensor_id = 25916
+parameter = "pm25"
+start = "2018-11-01"
+quality = "reference"
+primary = true
+
+[[openaq.series]]
+name = "sputnik4_pm25"
+location_id = 4902926
+sensor_id = 13465748
+parameter = "pm25"
+start = "2023-07-01"
+quality = "low-cost"
+primary = false
+
+[[openaq.series]]
+name = "sputnik4_humidity"
+location_id = 4902926
+sensor_id = 13465749
+parameter = "relativehumidity"
+start = "2023-07-01"
+quality = "low-cost"
+primary = false
+
+[[openaq.series]]
+name = "sputnik4_temperature"
+location_id = 4902926
+sensor_id = 13465750
+parameter = "temperature"
+start = "2023-07-01"
+quality = "low-cost"
+primary = false
+
+[openmeteo]
+# Weather location: the US Diplomatic Post station, the primary PM2.5 series.
+latitude = 41.3672
+longitude = 69.2725
+archive_url = "https://archive-api.open-meteo.com/v1/archive"
+previous_runs_url = "https://previous-runs-api.open-meteo.com/v1/forecast"
+era5_start = "2018-11-01"
+# The archive lags real time by several days.
+era5_end_lag_days = 7
+# Open-Meteo returns wind speed and gusts in km/h.
+core_variables = [
+  "temperature_2m",
+  "relative_humidity_2m",
+  "dew_point_2m",
+  "precipitation",
+  "surface_pressure",
+  "cloud_cover",
+  "wind_speed_10m",
+  "wind_direction_10m",
+  "wind_gusts_10m",
+]
+extra_variables = [
+  "boundary_layer_height",
+  "shortwave_radiation",
+  "vapour_pressure_deficit",
+  "pressure_msl",
+  "snow_depth",
+]
+
+[openmeteo.forecast]
+# Archived forecasts exist for these variables from 2024-01-19 (boundary layer
+# height and snow depth have none).
+start = "2024-01-19"
+end = "2025-03-01"
+# Forecast issued N days before the valid hour. Lead k days ahead uses N = k + 1.
+previous_days = [2, 3, 4]
+chunk_days = 45
+variables = [
+  "temperature_2m",
+  "relative_humidity_2m",
+  "precipitation",
+  "surface_pressure",
+  "cloud_cover",
+  "wind_speed_10m",
+  "wind_direction_10m",
+  "wind_gusts_10m",
+  "shortwave_radiation",
+  "vapour_pressure_deficit",
+  "pressure_msl",
+]
+
+[target]
+# Confirmed forecast target (see docs/research/methodology.md).
+kind = "daily_mean_pm25"
+lead_days = [1, 2, 3]
+event_thresholds_ugm3 = [35.5, 55.5]
+primary_threshold_ugm3 = 55.5

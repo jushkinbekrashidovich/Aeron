@@ -1,6 +1,6 @@
 # Methodology
 
-Status: draft written at the end of Phase 1, based on the [feasibility report](feasibility_report.md). Items marked "proposed" need confirmation. Phase 3 will implement them with tests, and the exploratory scripts in `src/aeron/` are not the final pipeline.
+Status: draft written at the end of Phase 1, based on the [feasibility report](feasibility_report.md). The target, horizons and single-station scope are confirmed. Phase 3 will implement them with tests, and the exploratory scripts in `src/aeron/` are not the final pipeline.
 
 ## 1. Task definition
 

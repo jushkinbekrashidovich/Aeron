@@ -1,6 +1,6 @@
 # Feasibility report (Phase 1)
 
-Status: draft for review. Written 2026-11-17 from real queries, downloads and exploratory runs in this repository. Every number below comes from code in `src/aeron/` and is described in the linked notes. The modelling results are preliminary: one station, small samples, fixed settings, and code that predates the evaluation framework planned for Phase 3 (no leakage unit tests yet). They support feasibility decisions, not final claims.
+Status: reviewed, with the target decisions confirmed. Written 2026-11-17 from real queries, downloads and exploratory runs in this repository. Every number below comes from code in `src/aeron/` and is described in the linked notes. The modelling results are preliminary: one station, small samples, fixed settings, and code that predates the evaluation framework planned for Phase 3 (no leakage unit tests yet). They support feasibility decisions, not final claims.
 
 Association, not causation: all findings describe associations in observed data.
 
@@ -59,7 +59,7 @@ Most of the winter skill comes from weather.
 
 **RQ8: feature contributions.** Not yet analysed.
 
-## 4. Feasibility decisions (proposed, to confirm)
+## 4. Feasibility decisions (target, horizons and single station confirmed by the project owner on 2026-11-17)
 
 | Question | Decision | Evidence |
 |---|---|---|
@@ -87,12 +87,11 @@ Dropped or deferred features:
 - **Licences.** OpenAQ US station, Open-Meteo and the city portal terms must be confirmed before publication.
 - **Sensor quality.** The US station is reference-grade. Humidity bias for low-cost sensors has not been quantified.
 
-## 6. What Phase 1 still needs
+## 6. Phase 1 status
 
-- Confirm the decisions in section 4. The user has confirmed that a single-station study is acceptable, so the multi-station deferral stands and contacting the city portal owner is optional.
-- Contact the data owners for the city portal export and licence.
-- Notebooks 01 and 02 (data collection, data quality). The [data dictionary](../datasets/data_dictionary.md) and [data quality](../datasets/data_quality.md) documents are drafted.
-- Revise `tasks.md` and `roadmap.md` after confirmation. [Methodology](methodology.md) is drafted with the proposed decisions.
+- The decisions in section 4 are confirmed. A single-station study is accepted, so the multi-station deferral stands and contacting the city portal owner is optional.
+- Done: [data sources](../datasets/data_sources.md), [data dictionary](../datasets/data_dictionary.md), [data quality](../datasets/data_quality.md), notebooks 01 and 02, and [methodology](methodology.md). `tasks.md` and `roadmap.md` are revised.
+- Still open: licence confirmation for OpenAQ's US series, Open-Meteo and the city portal, and the reading of terms and rate limits for OpenAQ and Open-Meteo.
 
 ## 7. Evidence index
 
