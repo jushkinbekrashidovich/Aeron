@@ -53,6 +53,26 @@ BOOT = 1000
 rng = np.random.default_rng(0)
 
 
+def add_weather(d: pd.DataFrame, g) -> pd.DataFrame:
+    """Add daily weather aggregates (columns w_*) from a groupby of hourly data."""
+    d["w_temp_mean"] = g["temperature_2m"].mean()
+    d["w_temp_min"] = g["temperature_2m"].min()
+    d["w_temp_max"] = g["temperature_2m"].max()
+    d["w_rh_mean"] = g["relative_humidity_2m"].mean()
+    d["w_wind_mean"] = g["wind_speed_10m"].mean()
+    d["w_gust_max"] = g["wind_gusts_10m"].max()
+    d["w_precip"] = g["precipitation"].sum()
+    d["w_pres_mean"] = g["surface_pressure"].mean()
+    d["w_cloud_mean"] = g["cloud_cover"].mean()
+    d["w_ssr_sum"] = g["ex_ssr"].sum()
+    d["w_vpd_mean"] = g["ex_vpd"].mean()
+    d["w_msl_mean"] = g["ex_msl"].mean()
+    d["w_msl_chg"] = d["w_msl_mean"].diff()
+    d["w_snow"] = g["ex_snow"].max()
+    d["w_rain3"] = d["w_precip"].rolling(3, min_periods=3).sum()
+    return d
+
+
 def daily_frame() -> pd.DataFrame:
     """Daily PM2.5 and weather aggregates indexed by local date."""
     df = load()
@@ -80,21 +100,7 @@ def daily_frame() -> pd.DataFrame:
     d["pm_max"] = g["pm25"].max().where(count >= 18)
     eve = h[h.index.hour >= 18].groupby(h.index[h.index.hour >= 18].floor("D"))["pm25"]
     d["pm_eve"] = eve.mean().where(eve.count() >= 4)
-    d["w_temp_mean"] = g["temperature_2m"].mean()
-    d["w_temp_min"] = g["temperature_2m"].min()
-    d["w_temp_max"] = g["temperature_2m"].max()
-    d["w_rh_mean"] = g["relative_humidity_2m"].mean()
-    d["w_wind_mean"] = g["wind_speed_10m"].mean()
-    d["w_gust_max"] = g["wind_gusts_10m"].max()
-    d["w_precip"] = g["precipitation"].sum()
-    d["w_pres_mean"] = g["surface_pressure"].mean()
-    d["w_cloud_mean"] = g["cloud_cover"].mean()
-    d["w_ssr_sum"] = g["ex_ssr"].sum()
-    d["w_vpd_mean"] = g["ex_vpd"].mean()
-    d["w_msl_mean"] = g["ex_msl"].mean()
-    d["w_msl_chg"] = d["w_msl_mean"].diff()
-    d["w_snow"] = g["ex_snow"].max()
-    d["w_rain3"] = d["w_precip"].rolling(3, min_periods=3).sum()
+    add_weather(d, g)
     d["b_blh_mean"] = g["ex_blh"].mean()
     d["b_blh_min"] = g["ex_blh"].min()
     d["b_vent_mean"] = g["ex_vent"].mean()

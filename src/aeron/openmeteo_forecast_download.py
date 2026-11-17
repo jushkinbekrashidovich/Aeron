@@ -43,6 +43,9 @@ VARIABLES = [
     "wind_speed_10m",
     "wind_direction_10m",
     "wind_gusts_10m",
+    "shortwave_radiation",
+    "vapour_pressure_deficit",
+    "pressure_msl",
 ]
 DAYS = (2, 3, 4)
 CHUNK_DAYS = 45
