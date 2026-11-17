@@ -8,14 +8,14 @@ Main source for the project.
 
 | Check | Result |
 |---|---|
-| Rows, timestamps | 51,492 hourly rows, 2018-11-27 to 2025-02-25. Timestamps are unique, increasing and on the hour. |
+| Rows, timestamps | 51,492 hourly rows, 2018-11-27 to 2025-03-04. The last valid value is from 2025-02-25 (the rows after it are empty). Timestamps are unique, increasing and on the hour. |
 | Empty values | 7,411 rows (14.4%) have no value. By year: 2018 130, 2019 1,521, 2020 351, 2021 552, 2022 3,107, 2023 707, 2024 857, 2025 186. The cause is unknown (instrument downtime or flagged data). |
 | Valid hours | 44,081, which is 80.5% of the 54,765 hour span. Share by year: 2018 0.75, 2019 0.78, 2020 0.90, 2021 0.84, 2022 0.61, 2023 0.77, 2024 0.90, 2025 0.98. By month the share ranges from 0.68 (September) to 0.92 (January and June). |
 | Gaps | 694 gaps in total. 137 gaps are 6 hours or longer and 91 are 24 hours or longer (together 9,419 hours). 8 gaps are 7 days or longer (6,019 hours). The median gap is 1 hour, the 90th percentile 24 hours. The longest are 2,783 hours (from 2022-07-05), 1,086 hours (2019-04) and 744 hours (2023-02). |
 | Daily means | 1,824 local days have at least 18 observed hours. |
 | Resolution | Whole numbers only (ug/m3). |
 | Zeros | 78 values equal 0 (2024 has 69, mostly in clean spring and summer days, scattered through the day). Probably low values rounded to 0 rather than failures, not confirmed. Kept. |
-| High values | 84 hours above 300 ug/m3 and 16 above 500, the maximum 978 (episode of 2021-11-04 and 05). Kept, because they are the events of interest. Not verified against another source. |
+| High values | 84 hours above 300 ug/m3 and 16 above 500, the maximum 978. Most of these form a smooth episode on 2021-11-04 to 06 (the series is missing for several hours before it). Three events jump from below 60 to between 857 and 967 within one hour and fall straight back (2019-06-26, 2023-04-26 where the 857 reading repeats, and 2024-07-18). They look like sensor artefacts, are outside the winter months used for the winter results, and were kept for now. Two other readings above 500 fall in winter (511 on 2023-11-29 and 505 on 2023-12-29) and look like short episodes. None are verified against another source. |
 | Stuck values | Only 2 runs of 6 consecutive identical readings, none longer. |
 | Jumps | 144 hourly changes exceed 100 ug/m3 in absolute value. They are consistent with episodes starting and ending abruptly, not checked individually. |
 | Daily profile | In winter (local time) the mean is highest at night (about 61 to 67) and lowest in the afternoon (43 to 47). |
@@ -66,7 +66,7 @@ Download fails with HTTP 500 for datasets 133 and 230 (retested 2026-11-17). No 
 ## Open issues
 
 - The reason for empty hourly values in the US series (downtime or quality flags) is unknown.
-- Zeros and extreme values are not validated against another source.
+- Zeros and extreme values are not validated against another source, and the three one-hour spikes of 857 to 967 ug/m3 need a flagging rule in Phase 2.
 - The hour alignment between OpenAQ and Open-Meteo labels has not been verified.
 - Sensor humidity effects are not quantified for any low-cost source.
 - No cross-check between the US station and Sputnik-4 or the Mendeley station, which are in different places and periods.

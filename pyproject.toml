@@ -14,6 +14,7 @@ dependencies = ["numpy>=2.0", "pandas>=2.2", "scikit-learn>=1.5"]
 
 [project.optional-dependencies]
 dev = ["ruff", "pytest"]
+notebooks = ["matplotlib>=3.8", "ipykernel", "nbclient", "nbformat"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
