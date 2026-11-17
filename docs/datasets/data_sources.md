@@ -51,13 +51,15 @@ Entries are marked **Assessed** (checked with a real download or query on the re
 - Concerns: the US station stops in February 2025, so it cannot support a live or recent evaluation. One point source, no spatial coverage. Low-cost sensor accuracy and humidity bias for Sputnik-4. The empty values in the US series must be checked (instrument flags or missing readings).
 - Use: the only source found so far that covers several winters (2019 to 2024) for one point in Tashkent.
 
-### Open-Meteo (weather) - Candidate
+### Open-Meteo (weather) - Assessed (historical reanalysis only)
 
-- URL: https://open-meteo.com/
-- Expected content: temperature, humidity, wind speed and direction, pressure, precipitation, cloud cover; historical and forecast.
-- Coverage and resolution: *to verify*.
-- License and terms, including non-commercial restrictions and attribution: *to verify*.
-- Concerns to examine: historical values come from reanalysis or model output, not station observations. Using observed or reanalysis weather as an input during evaluation is more favorable than the forecast weather available in real use. See the leakage rule in [methodology](../research/methodology.md).
+- URL: https://open-meteo.com/ ; historical weather API `archive-api.open-meteo.com/v1/archive` (ERA5 reanalysis). No key. Downloader: `src/aeron/openmeteo_download.py`, output in `data/raw/openmeteo/` (not committed) with `metadata.json`.
+- Pulled for the US Diplomatic Post coordinates (41.367 N, 69.273 E), UTC, hourly, 2018-11-01 to 2026-11-10: 70,368 rows with no missing values.
+- Variables: temperature 2 m, relative humidity, dew point, precipitation, surface pressure, cloud cover, wind speed and direction at 10 m, wind gusts.
+- Value ranges look plausible (temperature -26.3 to 44.6 C, with the minimum on 2023-01-12, humidity 6 to 100%, pressure 945 to 993 hPa).
+- Retrieval date: 2026-11-17.
+- License and terms, including non-commercial restrictions and attribution: *to verify* on the Open-Meteo terms page before any publication or commercial use.
+- Concerns: ERA5 is model output on a coarse grid, not a station observation, and it is not the forecast weather available in real use. Using it as an input in evaluation is more favorable than operation. See the leakage rule in [methodology](../research/methodology.md). Open-Meteo also offers archived past forecasts (historical forecast API), which would be the fairer input for 24 to 72 hour forecasts. *To verify* its start date and coverage for Tashkent. The archive does not include boundary layer height.
 
 ### NASA Earthdata (satellite) - Candidate
 
