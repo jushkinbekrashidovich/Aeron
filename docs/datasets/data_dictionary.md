@@ -5,7 +5,7 @@ Status: draft (Phase 1). Describes the raw files currently produced by the downl
 ## Conventions
 
 - All timestamps in the raw files are UTC, written as ISO 8601 with a trailing `Z` (except the Mendeley file, see below). Local time (Asia/Tashkent) is UTC+5 all year and is used only for daily aggregation.
-- OpenAQ hourly values are labelled with the start of the hour they average (`datetimeFrom`). Open-Meteo values are labelled with the hour. According to the Open-Meteo documentation, state variables are instantaneous at that hour and accumulated variables (precipitation, radiation) cover the preceding hour. This can put the weather up to an hour out of step with the PM2.5 label. The offset has not been checked or corrected, and is small relative to 24 hour horizons.
+- OpenAQ hourly values are labelled with the start of the hour they average (`datetimeFrom`). Open-Meteo values are labelled with the hour. According to the Open-Meteo documentation, state variables are instantaneous at that hour and accumulated variables (precipitation, radiation) cover the preceding hour. A check against ERA5 temperature and humidity at the Sputnik-4 sensor puts the offset between the two label conventions at about a quarter of an hour or less, so no shift is applied (see [data quality](data_quality.md)).
 - Missing values are empty cells. No imputation has been applied.
 
 ## `data/raw/openaq/<name>_hourly.csv`
@@ -83,6 +83,18 @@ Downloaded from Mendeley Data (DOI 10.17632/nmpz7jds4f.2, CC BY 4.0), one statio
 | `wind_degree/Ўг` | degrees | Wind direction (garbled column name in the source) |
 
 Note that this file's wind speed is in m/s, while the Open-Meteo files use km/h.
+
+## `data/interim/openaq/<series>_flagged.csv`
+
+Produced by `python scripts/clean_data.py` for each PM2.5 series (`us_embassy_pm25`, `sputnik4_pm25`), from `src/aeron/cleaning.py`. One row per hour on a continuous hourly grid from the first to the last row of the raw file. Not committed. The rules are in [cleaning log](cleaning_log.md).
+
+| Column | Meaning |
+|---|---|
+| `datetime_utc` | Start of the hour, UTC |
+| `value_raw` | Value from the raw file (empty if missing) |
+| `row_present` | 1 if the raw file has a row for this hour, 0 if the hour is absent |
+| `missing`, `negative`, `above_max`, `zero`, `spike`, `spike_extreme`, `stuck` | 1 if the rule applies to the hour |
+| `value_clean` | `value_raw` with negative, above-limit, extreme-spike and stuck readings set to missing |
 
 ## Derived quantities used in the exploratory scripts
 

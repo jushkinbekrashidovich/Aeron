@@ -79,11 +79,25 @@ Result on the data pulled 2026-11-17 (0 files with errors, 1 with warnings):
 
 The validation caught one error of mine while it was being written: an expected dew-point column that the forecast file never had. The Mendeley file is not covered yet (different time format and local time). Flags and cleaning rules are task 2.2.2.
 
+## Time alignment (task 2.2.2)
+
+OpenAQ labels hourly values with the start of the hour and Open-Meteo labels values with the hour. Comparing the Sputnik-4 temperature and humidity with ERA5 at lags of -3 to +3 hours (hourly deviations from the daily mean, from September 2025) gives the best match at lag 0 for both (temperature correlation 0.94 against 0.91 at +1 h and 0.89 at -1 h, humidity 0.81 against 0.76 and 0.79). Parabolic interpolation puts the offset at +0.15 h for temperature and -0.24 h for humidity. The two places are about 18 km apart, so the check is approximate, but it shows that no shift is needed. Code: notebook 02, section 6.
+
+## Cleaning rules (task 2.2.2)
+
+`python scripts/clean_data.py` flags questionable PM2.5 readings and writes `data/interim/openaq/<series>_flagged.csv` (raw value, clean value and one 0/1 column per rule). Rules, parameters and the number of records each affects are in [cleaning log](cleaning_log.md). Raw files are never changed. For the US series:
+
+- 10,846 hours on the hourly grid have no value (7,411 empty values plus 3,435 hours without a row). They stay missing.
+- Four hours are set to missing as extreme isolated spikes: 966 on 2019-06-26, 857 twice on 2023-04-26 and 967 on 2024-07-18. Each jumps from below about 60 to 857 to 967 and falls back within an hour or two.
+- Four more hours are flagged as spikes but kept, because short real plumes are plausible at this level: 425 on 2019-04-01, 411 on 2019-07-31, and 511 and 355 on 2023-11-29. The 2023-11-29 pulse and the 2019-04-01 pulse could be real plumes or artefacts, and this was not resolved.
+- The 78 zeros are flagged and kept. No negative values, values above 2000 ug/m3 or stuck runs of 24 hours were found.
+- The November 2021 episode (up to 978) is not flagged, because it rises and falls over many hours.
+- After cleaning, 44,077 of the 44,081 valid hours remain. The Sputnik-4 series has no flags.
+
 ## Open issues
 
 - The reason for empty hourly values in the US series (downtime or quality flags) is unknown.
-- Zeros and extreme values are not validated against another source, and the three one-hour spikes of 857 to 967 ug/m3 need a flagging rule in Phase 2.
-- The hour alignment between OpenAQ and Open-Meteo labels has not been verified.
+- Zeros and extreme values are not validated against another source. The flagged-but-kept pulses (411 to 511 ug/m3) could be real plumes or artefacts.
 - Sensor humidity effects are not quantified for any low-cost source.
 - No cross-check between the US station and Sputnik-4 or the Mendeley station, which are in different places and periods.
 - Licences for the OpenAQ US series, Open-Meteo and the city portal are unconfirmed.
