@@ -17,6 +17,7 @@ The answer depends on data whose availability for Tashkent is unknown: how many 
 In scope:
 - PM2.5 as the primary target; PM10 and other pollutants when available.
 - Tashkent and its monitoring stations.
+- Forecasting target: hourly PM2.5, 24 hour ahead and from one station start.
 - Historical analysis, forecasting, model evaluation and explanation.
 
 Out of scope for now:
