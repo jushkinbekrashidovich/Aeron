@@ -96,20 +96,25 @@ def block_bootstrap(res: pd.DataFrame, pairs):
     return {m: ci(stats[m]) for m in METHODS}, {p: ci(diffs[p]) for p in pairs}
 
 
+def pooled_predictions(df: pd.DataFrame, lead: int) -> pd.DataFrame:
+    """Out-of-sample predictions of all methods over all rolling test blocks."""
+    feats = (build(df, lead, False), build(df, lead, True))
+    parts = []
+    for name, start, end in BLOCKS:
+        res = run_block(df, lead, pd.Timestamp(start), pd.Timestamp(end), feats)
+        if res is None:
+            continue
+        res["block"] = name
+        res["group"] = "winter" if name.startswith("winter") else "other"
+        parts.append(res)
+    return pd.concat(parts, ignore_index=True)
+
+
 def main() -> None:
     df = load()
     pairs = [("gbm_B", "climatology"), ("gbm_A", "climatology"), ("gbm_B", "gbm_A")]
     for lead in LEADS:
-        feats = (build(df, lead, False), build(df, lead, True))
-        parts = []
-        for name, start, end in BLOCKS:
-            res = run_block(df, lead, pd.Timestamp(start), pd.Timestamp(end), feats)
-            if res is None:
-                continue
-            res["block"] = name
-            res["group"] = "winter" if name.startswith("winter") else "other"
-            parts.append(res)
-        allres = pd.concat(parts, ignore_index=True)
+        allres = pooled_predictions(df, lead)
         print(f"\n=== lead {lead} h: MAE by block (ug/m3), n = rows ===")
         table = allres.groupby("block", sort=False).apply(
             lambda g: pd.Series(
