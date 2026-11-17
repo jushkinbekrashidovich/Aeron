@@ -63,6 +63,22 @@ Implications: the 2022 outage and the 14% empty hourly values mean models must h
 
 Download fails with HTTP 500 for datasets 133 and 230 (retested 2026-11-17). No data was assessed. According to the portal's owner, humidity and fog inflate the readings of their sensors.
 
+## Automated validation (task 2.2.1)
+
+`python scripts/validate_data.py` checks every raw file for the expected columns and order, ISO timestamps on the hour, unique and increasing timestamps, a strictly hourly grid where one is expected (ERA5 and forecasts), numeric values inside physical limits (for example PM2.5 0 to 2000 ug/m3, humidity 0 to 100%), and the share of empty cells. The expected columns for the weather files come from `configs/sources.toml`. It only reads data. Errors make the script exit with status 1, warnings do not.
+
+Result on the data pulled 2026-11-17 (0 files with errors, 1 with warnings):
+
+| File | Status | Notes |
+|---|---|---|
+| `us_embassy_pm25_hourly.csv` | WARN | 16 hours above 500 ug/m3 (see above). Info: 14.4% empty values, 78 zeros, 183 time steps longer than one hour. |
+| Sputnik-4 PM2.5, humidity, temperature | OK | 34 time steps longer than one hour (longest 63 days). |
+| `era5_tashkent_hourly.csv` | OK | Complete hourly grid, no empty cells. |
+| `era5_extra_tashkent_hourly.csv` | OK | Boundary layer height 6.2% empty (the 2024 gap), allowed up to 7%. |
+| `forecast_previous_runs_hourly.csv` | OK | Complete hourly grid. 0.4%, 0.6% and 0.9% empty cells in the forecasts issued 2, 3 and 4 days ahead, the same hours across variables. |
+
+The validation caught one error of mine while it was being written: an expected dew-point column that the forecast file never had. The Mendeley file is not covered yet (different time format and local time). Flags and cleaning rules are task 2.2.2.
+
 ## Open issues
 
 - The reason for empty hourly values in the US series (downtime or quality flags) is unknown.
