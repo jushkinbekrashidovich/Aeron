@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 # Runtime dependencies are added when the code that needs them is written.
-dependencies = []
+dependencies = ["numpy>=2.0", "pandas>=2.2", "scikit-learn>=1.5"]
 
 [project.optional-dependencies]
 dev = ["ruff", "pytest"]

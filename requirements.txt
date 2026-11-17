@@ -1,3 +1,6 @@
 # AERON dependencies.
-# Intentionally empty for now: each package is added in the commit that first
-# needs it, with a reason in the commit message.
+# Each package is added in the commit that first needs it, with a reason in the
+# commit message.
+numpy>=2.0  # array maths for the first model experiment
+pandas>=2.2  # time-series alignment and lag features
+scikit-learn>=1.5  # HistGradientBoostingRegressor
