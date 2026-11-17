@@ -42,7 +42,7 @@ Yes with weather, not reliably without it.
 Most of the winter skill comes from weather.
 - Hourly winter MAE falls by 4 to 6 ug/m3 when observed weather is added to history at every lead. With archived forecasts the loss against observed weather was about 1.5 ug/m3 ([GBM note](preliminary_gbm.md)).
 - Daily, history-only forecasts beat climatology only at 1 day. With observed weather MAE is 16 to 19 ug/m3 at 1 to 3 days (27% to 32% of the winter mean of about 60).
-- With archived forecasts the daily gain is smaller: 8.6, 5.0 and 4.2 ug/m3 over climatology at 1, 2 and 3 days after removing wind, which has a forecast bias of about -2.5 m/s (with wind included, 6.7, 2.7 and 1.7). That choice was made after seeing the results and needs an independent test.
+- With archived forecasts the daily gain is smaller: 8.6, 5.0 and 4.2 ug/m3 over climatology at 1, 2 and 3 days after removing wind, which has a forecast bias of about -2.5 km/h (with wind included, 6.7, 2.7 and 1.7). That choice was made after seeing the results and needs an independent test.
 - Boundary layer height, radiation and pressure add 1 to 3 ug/m3 hourly and nothing measurable for daily means ([stagnation](preliminary_stagnation.md)).
 
 **RQ4: seasonal and weather patterns.** Partly answered. Monthly mean PM2.5 at the US station is 57 (Jan), 61 (Nov) and 67 (Dec) against 22 (May). Winter hours with low boundary layers average about 83 ug/m3 against 40 with high ones. No formal exploratory or statistical analysis has been done (Phase 2).
@@ -80,18 +80,18 @@ Dropped or deferred features:
 
 ## 5. Risks and open items
 
-- **Blocked city portal data.** Without it the project is a single-station study. Action: contact the Department of Digital Development for a bulk export and a licence statement, and the authors of the Tashkent paper. Not yet done.
+- **Blocked city portal data.** Without it the project is a single-station study, which has been accepted. Optional action: ask the Department of Digital Development for a bulk export and a licence statement, and the authors of the Tashkent paper.
 - **Small effective sample.** About five winters and 140 days with forecast weather. Differences between winters are as large as differences between models.
 - **Exploratory code.** The experiments were run before the Phase 3 evaluation framework (walk-forward splits with leak tests, MLflow). They need to be re-implemented and tested there before any result is reported as final.
-- **No formal EDA, statistics, data dictionary or data quality report yet** (Phase 2).
+- **No formal EDA or statistics yet** (Phase 2). The data dictionary and data quality documents are drafts.
 - **Licences.** OpenAQ US station, Open-Meteo and the city portal terms must be confirmed before publication.
 - **Sensor quality.** The US station is reference-grade. Humidity bias for low-cost sensors has not been quantified.
 
 ## 6. What Phase 1 still needs
 
-- Confirm the decisions in section 4.
+- Confirm the decisions in section 4. The user has confirmed that a single-station study is acceptable, so the multi-station deferral stands and contacting the city portal owner is optional.
 - Contact the data owners for the city portal export and licence.
-- Notebooks 01 and 02 (data collection, data quality) and the `data_dictionary.md` and `data_quality.md` documents.
+- Notebooks 01 and 02 (data collection, data quality). The [data dictionary](../datasets/data_dictionary.md) and [data quality](../datasets/data_quality.md) documents are drafted.
 - Revise `tasks.md` and `roadmap.md` after confirmation. [Methodology](methodology.md) is drafted with the proposed decisions.
 
 ## 7. Evidence index

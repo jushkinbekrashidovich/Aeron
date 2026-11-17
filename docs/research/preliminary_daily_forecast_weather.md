@@ -21,8 +21,8 @@ Daily aggregates against ERA5 at the station (forecast issued 2 days ahead; the 
 |---|---|---|---|---|
 | Mean temperature (C) | 13.4 | +0.9 (+1.0) | 1.2 (1.5) | 0.99 (0.99) |
 | Mean relative humidity (%) | 58.9 | -1.3 (-1.3) | 6.1 (7.2) | 0.92 (0.89) |
-| Mean wind speed (m/s) | 8.0 | -2.5 (-2.8) | 2.6 (2.9) | 0.70 (0.62) |
-| Maximum gust (m/s) | 27.1 | -1.2 (-2.0) | 5.2 (5.7) | 0.75 (0.71) |
+| Mean wind speed (km/h) | 8.0 | -2.5 (-2.8) | 2.6 (2.9) | 0.70 (0.62) |
+| Maximum gust (km/h) | 27.1 | -1.2 (-2.0) | 5.2 (5.7) | 0.75 (0.71) |
 | Daily rain (mm) | 2.0 | -0.6 (-0.7) | 1.1 (1.4) | 0.79 (0.71) |
 | Mean cloud cover (%) | 49.0 | +5.7 (+5.2) | 12.6 (14.5) | 0.89 (0.84) |
 | Mean sea-level pressure (hPa) | 1017.2 | +0.3 (+0.3) | 0.7 (1.2) | 1.00 (0.99) |
@@ -65,7 +65,7 @@ Base rate 0.45 (65, 64 and 63 days; always-yes F1 0.62). F1 with a 0.5 cut-off, 
 ## Observations
 
 - Real forecast weather costs much more at the daily level than at the hourly level. MAE rises by 3.7, 4.1 and 6.2 ug/m3 (interval above zero at every lead) against about 1.5 for hourly values. The gain over climatology shrinks from 8 to 10 ug/m3 with perfect weather (daily note) to 1.7 to 6.7 with archived forecasts.
-- The loss comes mostly from wind. Forecast wind is low by 2.5 to 2.8 m/s, so the model trained on ERA5 reads the days as calmer than they are and overpredicts by 9 to 12 ug/m3 (bias +10.2, +8.7, +11.8). Removing wind and gusts brings the bias to between -1.4 and -4.1 and lowers MAE by about 2 ug/m3 at each lead, though perfect weather without wind is worse than with it (16.8 against 15.3 at 1 day). Because this fix was chosen after seeing the results, treat it as a lead for a proper test, not a result.
+- The loss comes mostly from wind. Forecast wind is low by 2.5 to 2.8 km/h, so the model trained on ERA5 reads the days as calmer than they are and overpredicts by 9 to 12 ug/m3 (bias +10.2, +8.7, +11.8). Removing wind and gusts brings the bias to between -1.4 and -4.1 and lowers MAE by about 2 ug/m3 at each lead, though perfect weather without wind is worse than with it (16.8 against 15.3 at 1 day). Because this fix was chosen after seeing the results, treat it as a lead for a proper test, not a result.
 - With wind removed, the forecast-weather model beats climatology at all three leads (-8.6, -5.0 and -4.2 ug/m3, intervals exclude zero) and beats persistence and the history-only model clearly at 2 and 3 days. Skill beyond one day is about half of what perfect weather would give.
 - At 3 days the full model with wind is not distinguishable from climatology (-1.7 [-5.1, +2.3]), and exceedance detection is weak: F1 0.66 to 0.68 against 0.62 for always-yes, AUC 0.73 to 0.76, Brier skill 12%. At 1 day the exceedance forecast is useful (F1 0.72 to 0.76, Brier skill 19% to 30%).
 - Probabilities are the most sensitive to the weather input. Brier skill at 55.5 ug/m3 falls from 0.37, 0.31 and 0.29 with perfect weather to 0.19, 0.17 and 0.12 with forecasts for the full model.

@@ -45,7 +45,7 @@ Code: `src/aeron/gbm_forecast_weather.py`; data from `src/aeron/openmeteo_foreca
 
 - Variant C uses the same model as B, trained on ERA5 weather before 2024-01-01, but at test time takes the archived forecast for the target hour. The forecast issued 2, 3 and 4 days before the valid time is used for leads of 24, 48 and 72 h. That leaves a margin of about one day for model run publication, so it is conservative: forecasts issued one day closer would be more accurate.
 - Test rows are targets from 2024-01-19 to 2025-02-25, the period with archived multi-variable forecasts. All methods use identical rows. Winter test rows are about 3,300 to 3,400 hours (late Jan to Feb 2024, Nov and Dec 2024, Jan and Feb 2025).
-- Archived forecasts against ERA5 at the station: temperature MAE 1.7 to 2.0 C (correlation 0.98 to 0.99), relative humidity MAE 9 to 10 points, wind speed MAE 3.5 to 3.8 m/s with a bias of about -2.5 and correlation only 0.4. Forecasts of wind and precipitation are poor, and the model trained on ERA5 sees inputs with a different distribution.
+- Archived forecasts against ERA5 at the station: temperature MAE 1.7 to 2.0 C (correlation 0.98 to 0.99), relative humidity MAE 9 to 10 points, wind speed MAE 3.5 to 3.8 km/h with a bias of about -2.5 and correlation only 0.4. Forecasts of wind and precipitation are poor, and the model trained on ERA5 sees inputs with a different distribution.
 
 MAE / RMSE in ug/m3, winter and all months:
 
