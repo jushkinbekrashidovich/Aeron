@@ -35,6 +35,7 @@ from sklearn.ensemble import (
 from sklearn.metrics import average_precision_score, brier_score_loss, roc_auc_score
 
 from aeron.gbm_experiment import load
+from aeron.processing import add_weather
 from aeron.rolling_eval import BLOCKS, TEST_END
 from aeron.stagnation_experiment import extra_series
 
@@ -51,26 +52,6 @@ PARAMS = {
 }
 BOOT = 1000
 rng = np.random.default_rng(0)
-
-
-def add_weather(d: pd.DataFrame, g) -> pd.DataFrame:
-    """Add daily weather aggregates (columns w_*) from a groupby of hourly data."""
-    d["w_temp_mean"] = g["temperature_2m"].mean()
-    d["w_temp_min"] = g["temperature_2m"].min()
-    d["w_temp_max"] = g["temperature_2m"].max()
-    d["w_rh_mean"] = g["relative_humidity_2m"].mean()
-    d["w_wind_mean"] = g["wind_speed_10m"].mean()
-    d["w_gust_max"] = g["wind_gusts_10m"].max()
-    d["w_precip"] = g["precipitation"].sum()
-    d["w_pres_mean"] = g["surface_pressure"].mean()
-    d["w_cloud_mean"] = g["cloud_cover"].mean()
-    d["w_ssr_sum"] = g["ex_ssr"].sum()
-    d["w_vpd_mean"] = g["ex_vpd"].mean()
-    d["w_msl_mean"] = g["ex_msl"].mean()
-    d["w_msl_chg"] = d["w_msl_mean"].diff()
-    d["w_snow"] = g["ex_snow"].max()
-    d["w_rain3"] = d["w_precip"].rolling(3, min_periods=3).sum()
-    return d
 
 
 def daily_frame() -> pd.DataFrame:

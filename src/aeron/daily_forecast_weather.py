@@ -36,13 +36,13 @@ from aeron.daily_experiment import (
     TEST_END,
     THRESHOLDS,
     UTC_OFFSET,
-    add_weather,
     bootstrap,
     build,
     climatology,
     daily_frame,
     f1,
 )
+from aeron.processing import forecast_weather_daily, read_hourly
 
 ROOT = Path(__file__).resolve().parents[2]
 FC_FILE = ROOT / "data" / "raw" / "openmeteo" / "forecast_previous_runs_hourly.csv"
@@ -63,19 +63,7 @@ NAMES = {
 
 def forecast_daily(k: int) -> pd.DataFrame:
     """Daily weather aggregates from forecasts issued k + 1 days earlier."""
-    raw = pd.read_csv(FC_FILE, parse_dates=["datetime_utc"])
-    raw["datetime_utc"] = raw["datetime_utc"].dt.tz_localize(None)
-    raw = raw.set_index("datetime_utc")
-    h = pd.DataFrame(index=raw.index)
-    for src, dst in NAMES.items():
-        h[dst] = raw[f"{src}_previous_day{k + 1}"]
-    h["ex_snow"] = np.nan
-    h.index = h.index + UTC_OFFSET
-    g = h.groupby(h.index.floor("D"))
-    d = pd.DataFrame(index=g.size().index)
-    add_weather(d, g)
-    hours = g["temperature_2m"].count()
-    return d[hours >= 22]
+    return forecast_weather_daily(read_hourly(FC_FILE), k, UTC_OFFSET)
 
 
 def collect(d: pd.DataFrame, k: int) -> pd.DataFrame:

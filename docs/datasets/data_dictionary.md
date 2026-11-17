@@ -96,6 +96,47 @@ Produced by `python scripts/clean_data.py` for each PM2.5 series (`us_embassy_pm
 | `missing`, `negative`, `above_max`, `zero`, `spike`, `spike_extreme`, `stuck` | 1 if the rule applies to the hour |
 | `value_clean` | `value_raw` with negative, above-limit, extreme-spike and stuck readings set to missing |
 
+## Processed tables (`data/processed/`)
+
+Built by `python scripts/build_dataset.py` (code in `src/aeron/processing.py`) after `download_data.py` and `clean_data.py`. Not committed. `metadata.json` records the build time, row counts and parameters. Nothing is imputed (see the [missing data policy](missing_data_policy.md)). No sample file is committed, because the licence of the US station series is not stated.
+
+### `hourly_us_embassy.csv`
+
+One row per UTC hour on the US station's grid (2018-11-27 21:00 to 2025-03-04 11:00, 54,927 rows, 53 columns). Index column `datetime_utc` is the start of the hour.
+
+| Columns | Meaning |
+|---|---|
+| `pm25` | Cleaned hourly PM2.5, ug/m3 (empty when missing or removed by a cleaning rule) |
+| `pm25_raw` | PM2.5 from the raw file |
+| `flag_zero`, `flag_spike`, `flag_spike_extreme`, `flag_stuck` | 1 if the cleaning rule applies (see [cleaning log](cleaning_log.md)) |
+| `era5_<variable>` | ERA5 core and extra variables for the hour, same names and units as the raw files (wind in km/h) |
+| `fc_d2_<variable>`, `fc_d3_<variable>`, `fc_d4_<variable>` | Archived forecast of the variable for this hour, issued 2, 3 or 4 days earlier. Empty before 2024-01-20 and after 2025-03-01. |
+
+### `daily_us_embassy.csv`
+
+One row per local day (Asia/Tashkent, UTC+5) from the first to the last day with a valid PM2.5 hour (2018-11-28 to 2025-02-25, 2,282 rows, 64 columns). Index column `date` is the local date. Days with no daily mean stay in the table with an empty `pm25_mean`.
+
+| Column | Meaning |
+|---|---|
+| `pm25_hours` | Number of observed hours in the local day (0 to 24). The first day has only 22 hours of data. |
+| `pm25_mean`, `pm25_max` | Mean and maximum of the observed hours, empty if fewer than 18 hours (1,823 days have a mean) |
+| `pm25_eve_mean` | Mean over local 18:00 to 23:59, empty if fewer than 4 hours |
+| `era5_temp_mean`, `era5_temp_min`, `era5_temp_max` | Temperature, degrees C |
+| `era5_rh_mean` | Mean relative humidity, % |
+| `era5_wind_mean`, `era5_gust_max` | Mean wind speed and maximum gust, km/h |
+| `era5_precip` | Daily precipitation, mm |
+| `era5_pres_mean`, `era5_msl_mean`, `era5_msl_chg` | Mean surface pressure, mean sea-level pressure (hPa) and its change from the previous day |
+| `era5_cloud_mean` | Mean cloud cover, % |
+| `era5_ssr_sum` | Sum of hourly shortwave radiation, W/m2 x h |
+| `era5_vpd_mean` | Mean vapour pressure deficit, kPa |
+| `era5_snow` | Maximum snow depth, m |
+| `era5_rain3` | Precipitation over the day and the two previous days, mm |
+| `era5_blh_mean`, `era5_blh_min` | Mean and minimum boundary layer height, m (empty for 2024-01-01 to 2024-06-30) |
+| `era5_vent_mean` | Mean of boundary layer height times wind speed (m x km/h) |
+| `fc_lead1_*`, `fc_lead2_*`, `fc_lead3_*` | The same weather aggregates (without snow, boundary layer height and ventilation) computed from the forecast issued lead + 1 days earlier. A day needs at least 22 forecast hours. Empty before the archive starts. |
+
+Each row holds observations of its own local day. The `fc_lead*` columns are forecasts that existed before that day, which is what a real forecast could use, while the `era5_*` weather columns are the weather that happened (a perfect-forecast scenario, see the [methodology](../research/methodology.md)). A model for lead k must not use `era5_*` weather of the target day as a headline input.
+
 ## Derived quantities used in the exploratory scripts
 
 These are computed in code and are not stored. They will be documented again when the processed dataset exists.

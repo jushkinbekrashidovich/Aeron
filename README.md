@@ -21,6 +21,9 @@ Air pollution analysis and PM2.5 forecasting for Tashkent, Uzbekistan.
 pip install -e ".[dev]"
 cp .env.example .env             # add your free OpenAQ key
 python scripts/download_data.py
+python scripts/validate_data.py   # checks the raw files
+python scripts/clean_data.py      # flags questionable PM2.5 readings
+python scripts/build_dataset.py   # hourly and daily tables in data/processed/
 ```
 
 Downloads are resumable. Settings are in `configs/sources.toml`. Raw data is written to `data/raw/` and is not committed. See [data sources](docs/datasets/data_sources.md).
