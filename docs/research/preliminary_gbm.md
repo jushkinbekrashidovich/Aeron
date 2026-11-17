@@ -39,9 +39,37 @@ Winter is November to February. Number of test rows: 8,786 (24 h), 8,689 (48 h),
 - B at 72 h (MAE 22.3) is about as good as A at 24 h (22.8), which says how much of the signal is in the weather.
 - Winter errors remain large (MAE 29 to 33 against a test winter mean of 60.3). Forecasts of hourly values in winter are weak even with perfect weather.
 
+## Forecast weather instead of observed weather
+
+Code: `src/aeron/gbm_forecast_weather.py`; data from `src/aeron/openmeteo_forecast_download.py` (Open-Meteo Previous Runs API, not committed).
+
+- Variant C uses the same model as B, trained on ERA5 weather before 2024-01-01, but at test time takes the archived forecast for the target hour. The forecast issued 2, 3 and 4 days before the valid time is used for leads of 24, 48 and 72 h. That leaves a margin of about one day for model run publication, so it is conservative: forecasts issued one day closer would be more accurate.
+- Test rows are targets from 2024-01-19 to 2025-02-25, the period with archived multi-variable forecasts. All methods use identical rows. Winter test rows are about 3,300 to 3,400 hours (late Jan to Feb 2024, Nov and Dec 2024, Jan and Feb 2025).
+- Archived forecasts against ERA5 at the station: temperature MAE 1.7 to 2.0 C (correlation 0.98 to 0.99), relative humidity MAE 9 to 10 points, wind speed MAE 3.5 to 3.8 m/s with a bias of about -2.5 and correlation only 0.4. Forecasts of wind and precipitation are poor, and the model trained on ERA5 sees inputs with a different distribution.
+
+MAE / RMSE in ug/m3, winter and all months:
+
+| Method | Lead | Winter | All |
+|---|---|---|---|
+| Climatology | 24 h | 33.0 / 44.2 | 25.1 / 36.4 |
+| GBM A (lags) | 24 h | 32.6 / 43.8 | 21.8 / 34.3 |
+| GBM B (ERA5 weather) | 24 h | 27.4 / 37.0 | 19.0 / 30.3 |
+| GBM C (forecast weather) | 24 h | 29.1 / 38.7 | 20.2 / 31.4 |
+| Climatology | 48 h | 33.0 / 44.3 | 25.0 / 36.5 |
+| GBM A (lags) | 48 h | 36.4 / 48.3 | 23.7 / 36.9 |
+| GBM B (ERA5 weather) | 48 h | 29.5 / 39.3 | 20.4 / 31.9 |
+| GBM C (forecast weather) | 48 h | 31.2 / 40.9 | 21.7 / 32.9 |
+| Climatology | 72 h | 33.1 / 44.8 | 24.9 / 36.2 |
+| GBM A (lags) | 72 h | 35.2 / 47.9 | 23.8 / 37.2 |
+| GBM B (ERA5 weather) | 72 h | 31.1 / 42.0 | 21.1 / 33.2 |
+| GBM C (forecast weather) | 72 h | 32.6 / 43.1 | 22.5 / 34.1 |
+
+- Replacing observed weather with archived forecasts costs about 1.5 to 1.7 ug/m3 of winter MAE and about 1 to 1.4 over all months. Most of the gain from weather survives.
+- In winter, C beats climatology at 24 h (29.1 against 33.0) and 48 h (31.2 against 33.0). At 72 h the gap is 0.5 in MAE and 1.7 in RMSE, which this single split cannot distinguish from noise.
+- Variant A (lags only) is no better than climatology in winter at 48 and 72 h in this window either.
+
 ## Not yet done
 
-- Rerun B with archived forecast weather (Previous Runs API) for the part of the test period from 2024-01-19, to measure the loss from replacing observed weather with forecasts.
 - Uncertainty: no confidence intervals. A single split with two partial winters cannot separate model differences from year-to-year variation. Rolling-origin evaluation by season is needed.
 - Daily-mean target, feature importance and error analysis by pollution level (events above 100 ug/m3).
 - Stations other than the US Embassy.
