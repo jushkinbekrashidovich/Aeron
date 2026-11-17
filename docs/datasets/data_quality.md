@@ -55,7 +55,7 @@ Implications: the 2022 outage and the 14% empty hourly values mean models must h
 
 | Check | Result |
 |---|---|
-| Coverage | Complete for the downloaded window 2024-01-19 to 2025-03-01 (9,792 hours). Between 0.4% and 0.9% of cells are empty. Before 2024-01-19 only temperature is available. Boundary layer height and snow depth have no archived forecast. |
+| Coverage | Downloaded window 2024-01-19 to 2025-03-01 (9,792 hours). The 0.4% to 0.9% empty cells are the start of the archive, the same hours for every variable: forecasts issued 2, 3 and 4 days ahead are empty until 2024-01-20 11:00, 2024-01-21 11:00 and 2024-01-22 11:00 UTC. After that the file is complete. Before 2024-01-19 only temperature is available. Boundary layer height and snow depth have no archived forecast. |
 | Accuracy against ERA5 (daily aggregates, 2 days ahead) | Temperature bias +0.9 degrees C, MAE 1.2, correlation 0.99. Wind speed bias -2.5 km/h, correlation 0.70. Cloud cover bias +5.7 points. |
 | Historical forecast API | Returned values identical to ERA5 for the days tested, so it was not used. |
 
@@ -75,7 +75,7 @@ Result on the data pulled 2026-11-17 (0 files with errors, 1 with warnings):
 | Sputnik-4 PM2.5, humidity, temperature | OK | 34 time steps longer than one hour (longest 63 days). |
 | `era5_tashkent_hourly.csv` | OK | Complete hourly grid, no empty cells. |
 | `era5_extra_tashkent_hourly.csv` | OK | Boundary layer height 6.2% empty (the 2024 gap), allowed up to 7%. |
-| `forecast_previous_runs_hourly.csv` | OK | Complete hourly grid. 0.4%, 0.6% and 0.9% empty cells in the forecasts issued 2, 3 and 4 days ahead, the same hours across variables. |
+| `forecast_previous_runs_hourly.csv` | OK | Complete hourly grid. 0.4%, 0.6% and 0.9% empty cells in the forecasts issued 2, 3 and 4 days ahead: the first hours of the archive, the same across variables. |
 
 The validation caught one error of mine while it was being written: an expected dew-point column that the forecast file never had. The Mendeley file is not covered yet (different time format and local time). Flags and cleaning rules are task 2.2.2.
 

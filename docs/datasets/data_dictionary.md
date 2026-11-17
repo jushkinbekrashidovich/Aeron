@@ -62,7 +62,7 @@ Produced by `src/aeron/ingest/openmeteo.py`, same source and location, 70,368 ro
 
 Produced by `src/aeron/ingest/openmeteo.py` from the Open-Meteo Previous Runs API. 9,792 hourly rows from 2024-01-19 to 2025-03-01 (UTC) for the same location.
 
-Column names have the form `<variable>_previous_day<N>` for N = 2, 3 and 4. Each is the forecast for that hour that was issued about N days before it. Variables: `temperature_2m`, `relative_humidity_2m`, `precipitation`, `surface_pressure`, `cloud_cover`, `wind_speed_10m` (km/h), `wind_direction_10m`, `wind_gusts_10m` (km/h), `shortwave_radiation` (W/m2), `vapour_pressure_deficit` (kPa), `pressure_msl` (hPa). Units match the ERA5 files. Between 0.4% and 0.9% of cells in each column are empty (see data quality).
+Column names have the form `<variable>_previous_day<N>` for N = 2, 3 and 4. Each is the forecast for that hour that was issued about N days before it. Variables: `temperature_2m`, `relative_humidity_2m`, `precipitation`, `surface_pressure`, `cloud_cover`, `wind_speed_10m` (km/h), `wind_direction_10m`, `wind_gusts_10m` (km/h), `shortwave_radiation` (W/m2), `vapour_pressure_deficit` (kPa), `pressure_msl` (hPa). Units match the ERA5 files. Between 0.4% and 0.9% of cells in each column are empty. They are the first hours of the archive, the same for every variable (see data quality and the [missing data policy](missing_data_policy.md)).
 
 `forecast_previous_runs_metadata.json` records the request.
 
