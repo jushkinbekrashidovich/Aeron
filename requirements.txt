@@ -4,4 +4,4 @@
 numpy>=2.0  # array maths for the first model experiment
 pandas>=2.2  # time-series alignment and lag features
 scikit-learn>=1.5  # HistGradientBoostingRegressor
-# Notebook extras (pip install -e ".[notebooks]"): matplotlib for figures, ipykernel/nbclient/nbformat to run notebooks.
+# Notebook extras (pip install -e ".[notebooks]"): matplotlib for figures, ipykernel/nbclient/nbformat to run notebooks, statsmodels for the stationarity tests in notebook 04.
