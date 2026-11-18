@@ -73,3 +73,22 @@ Phase 3 adds unit tests for these rules.
 - Archived forecasts exist for about 13 months.
 - Coarse ERA5 and forecast grids do not resolve local inversions.
 - The reference series ends in February 2025, so the pipeline cannot be validated on the latest winter without new data.
+
+## 11. Evaluation framework (implemented in task 3.1)
+
+Code: `src/aeron/evaluation/` (`splits.py`, `metrics.py`, `tracking.py`), tested in `tests/test_evaluation_*.py`.
+
+**Splits.** Test blocks are winters (November to February) and March to October, in time order from the winter of 2020-21, with an expanding training window. For lead k days a forecast for target day D is issued at the end of day D - k. A model used at that moment can only have been trained on rows whose target day is on or before D - k. For a block starting on day S, training therefore stops at target day S - k (the walk-forward gap equals the lead time). `assert_no_leakage` checks this for every split and a test shows that a split without the gap is caught. Hyperparameters are tuned on a validation period made of the last days of the training window (`train_validation_split`), again with a gap of k days before it, and the model is then refitted on the whole training window.
+
+**Metrics.** Point forecasts: MAE (main), RMSE, bias and R2. MAPE exists but ignores days with an observed value below 10 ug/m3 and is not a main metric. Events: precision, recall and F1 next to the always-yes F1, plus AUC, average precision, Brier score and skill, expected calibration error, reliability tables and quantile coverage. Slices by season, block, lead time and observed level are made with `slice_metrics`. Slicing on the observed value (for example days above 100 ug/m3) selects on the outcome, so those errors are reported as a description of how the model behaves on such days and not as the accuracy a forecaster would expect. Comparisons between two methods use `paired_block_bootstrap`: non-overlapping blocks of 14 calendar days are resampled together for both methods, which keeps the comparison paired and the dependence between neighbouring days.
+
+**Check against the exploratory results.** Persistence and climatology for the daily mean in winters 2020-21 to 2024-25, computed with the new splits on the processed data, give MAE of 21.7, 28.5 and 30.7 (persistence) and 26.6, 27.1 and 27.4 (climatology) at 1, 2 and 3 days. The exploratory scripts gave 21.7, 28.4 and 30.7, and 26.6, 27.1 and 27.3. The small differences come from the walk-forward gap and the cleaned data.
+
+**Experiment tracking.** MLflow (local SQLite store in `mlruns/`, not committed; install with `pip install -e ".[tracking]"`). Each run records:
+
+- parameters: model and its settings, feature set size, seed, split scheme (blocks, gap, window), lead time. Names that look like keys or tokens are dropped;
+- tags: git commit and whether tracked files had uncommitted changes, checksums and build time of the processed tables (data version), and Python, numpy, pandas and scikit-learn versions;
+- artifacts: the feature list and, optionally, the predictions of the run;
+- metrics: named like `mae/winter/lead1`. Missing values are not logged.
+
+To browse runs, install the full `mlflow` package and run `mlflow ui --backend-store-uri sqlite:///mlruns/mlflow.db`.

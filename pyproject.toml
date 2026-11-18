@@ -14,6 +14,8 @@ dependencies = ["numpy>=2.0", "pandas>=2.2", "scikit-learn>=1.5"]
 
 [project.optional-dependencies]
 dev = ["ruff", "pytest"]
+# Experiment tracking (local SQLite store under mlruns/).
+tracking = ["mlflow-skinny>=3.0", "sqlalchemy>=2.0", "alembic>=1.13"]
 notebooks = ["matplotlib>=3.8", "ipykernel", "nbclient", "nbformat", "statsmodels>=0.14"]
 
 [tool.setuptools.packages.find]
@@ -21,6 +23,8 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# MLflow uses a SQLAlchemy loader option that SQLAlchemy 2.1 marks as deprecated.
+filterwarnings = ["ignore:.*noload.*:DeprecationWarning"]
 
 [tool.ruff]
 line-length = 88
