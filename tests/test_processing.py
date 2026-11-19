@@ -237,3 +237,33 @@ def test_metadata_is_json(workspace):
     meta, *_ = build(workspace)
     json.dumps(meta)
     assert meta["min_hours_for_daily_mean"] == 18
+
+
+# --------------------------------------------------------------------------
+# Wind vector
+# --------------------------------------------------------------------------
+def test_wind_components_point_the_way_the_wind_blows():
+    speed = pd.Series([10.0, 10.0, 10.0, 10.0])
+    direction = pd.Series([0.0, 90.0, 180.0, 270.0])  # from north, east, south, west
+    u, v = processing.wind_components(speed, direction)
+    assert u.round(6).tolist() == [0.0, -10.0, 0.0, 10.0]
+    assert v.round(6).tolist() == [
+        -10.0,
+        0.0,
+        10.0,
+        0.0,
+    ]  # from the north blows towards the south
+
+
+def test_daily_wind_vector_averages_components_not_directions():
+    index = pd.date_range("2024-02-01 19:00", periods=24, freq="h")  # one local day
+    speed = pd.Series(10.0, index=index)
+    direction = pd.Series([350.0, 10.0] * 12, index=index)  # either side of north
+    d = processing.daily_wind_vector(speed, direction, OFFSET)
+    assert d.loc["2024-02-02", "w_wind_u"] == pytest.approx(0.0, abs=1e-9)
+    assert d.loc["2024-02-02", "w_wind_v"] == pytest.approx(
+        -10 * np.cos(np.deg2rad(10)), abs=1e-6
+    )
+    assert processing.daily_wind_vector(
+        speed.iloc[:20], direction.iloc[:20], OFFSET, min_hours=22
+    ).empty

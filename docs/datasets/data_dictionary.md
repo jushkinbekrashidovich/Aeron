@@ -114,7 +114,7 @@ One row per UTC hour on the US station's grid (2018-11-27 21:00 to 2025-03-04 11
 
 ### `daily_us_embassy.csv`
 
-One row per local day (Asia/Tashkent, UTC+5) from the first to the last day with a valid PM2.5 hour (2018-11-28 to 2025-02-25, 2,282 rows, 64 columns). Index column `date` is the local date. Days with no daily mean stay in the table with an empty `pm25_mean`.
+One row per local day (Asia/Tashkent, UTC+5) from the first to the last day with a valid PM2.5 hour (2018-11-28 to 2025-02-25, 2,282 rows, 72 columns). Index column `date` is the local date. Days with no daily mean stay in the table with an empty `pm25_mean`.
 
 | Column | Meaning |
 |---|---|
@@ -131,9 +131,10 @@ One row per local day (Asia/Tashkent, UTC+5) from the first to the last day with
 | `era5_vpd_mean` | Mean vapour pressure deficit, kPa |
 | `era5_snow` | Maximum snow depth, m |
 | `era5_rain3` | Precipitation over the day and the two previous days, mm |
+| `era5_wind_u`, `era5_wind_v` | Daily mean east and north components of the wind vector, km/h (the wind direction as a vector, so averages are meaningful) |
 | `era5_blh_mean`, `era5_blh_min` | Mean and minimum boundary layer height, m (empty for 2024-01-01 to 2024-06-30) |
 | `era5_vent_mean` | Mean of boundary layer height times wind speed (m x km/h) |
-| `fc_lead1_*`, `fc_lead2_*`, `fc_lead3_*` | The same weather aggregates (without snow, boundary layer height and ventilation) computed from the forecast issued lead + 1 days earlier. A day needs at least 22 forecast hours. Empty before the archive starts. |
+| `fc_lead1_*`, `fc_lead2_*`, `fc_lead3_*` | The same weather aggregates, including the wind components (without snow, boundary layer height and ventilation) computed from the forecast issued lead + 1 days earlier. A day needs at least 22 forecast hours. Empty before the archive starts. |
 
 Each row holds observations of its own local day. The `fc_lead*` columns are forecasts that existed before that day, which is what a real forecast could use, while the `era5_*` weather columns are the weather that happened (a perfect-forecast scenario, see the [methodology](../research/methodology.md)). A model for lead k must not use `era5_*` weather of the target day as a headline input.
 

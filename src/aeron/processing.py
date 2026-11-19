@@ -74,6 +74,29 @@ def add_weather(d: pd.DataFrame, g) -> pd.DataFrame:
     return d
 
 
+def wind_components(
+    speed: pd.Series, direction: pd.Series
+) -> tuple[pd.Series, pd.Series]:
+    """East (u) and north (v) components of the wind vector, from speed and the direction it blows from.
+
+    A wind from the east (90 degrees) blows towards the west, so u is negative.
+    """
+    rad = np.deg2rad(direction)
+    return -speed * np.sin(rad), -speed * np.cos(rad)
+
+
+def daily_wind_vector(
+    speed: pd.Series, direction: pd.Series, offset: pd.Timedelta, min_hours: int = 0
+) -> pd.DataFrame:
+    """Daily mean wind components (w_wind_u, w_wind_v) over local days, with the same hour rule as weather."""
+    u, v = wind_components(speed, direction)
+    h = pd.DataFrame({"u": u, "v": v})
+    h.index = h.index + offset
+    g = h.groupby(h.index.floor("D"))
+    out = pd.DataFrame({"w_wind_u": g["u"].mean(), "w_wind_v": g["v"].mean()})
+    return out[g["u"].count() >= min_hours]
+
+
 def read_hourly(path: Path) -> pd.DataFrame:
     """Read a raw hourly CSV with a UTC ``datetime_utc`` column, as naive UTC."""
     frame = pd.read_csv(path)
@@ -209,12 +232,23 @@ def build_daily(
     last_day = (valid.max() + offset).floor("D")
     d = d[(d.index >= first_day) & (d.index <= last_day)]
     era5 = daily_weather(era5_inputs(core, extra), offset, blh=True)
+    era5 = era5.join(
+        daily_wind_vector(core["wind_speed_10m"], core["wind_direction_10m"], offset)
+    )
     era5 = era5.rename(columns=lambda c: "era5_" + c.split("_", 1)[1])
     d = d.join(era5, how="left")
     for k in cfg["target"]["lead_days"]:
         fw = forecast_weather_daily(forecast, k, offset).drop(
             columns="w_snow"
         )  # no forecast of snow depth
+        n = k + 1
+        wind = daily_wind_vector(
+            forecast[f"wind_speed_10m_previous_day{n}"],
+            forecast[f"wind_direction_10m_previous_day{n}"],
+            offset,
+            FORECAST_MIN_HOURS,
+        )
+        fw = fw.join(wind)
         fw = fw.rename(columns=lambda c, k=k: f"fc_lead{k}_" + c.split("_", 1)[1])
         d = d.join(fw, how="left")
     d.index.name = "date"
