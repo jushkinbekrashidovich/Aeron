@@ -106,4 +106,14 @@ These are reported as properties of the series, with no decision rule:
 
 | Date | Change | Reason |
 |---|---|---|
-| 2026-11-22 | None yet. | |
+| 2026-11-22 | No change to any hypothesis, threshold, test, block length, level or scope. | |
+
+### Implementation notes (details the plan left open; they do not change a hypothesis or a decision rule)
+
+- A block is any window of 14 consecutive calendar days that all exist in the sample; a run of consecutive days shorter than 14 days is kept as a single block, so no data is dropped. Blocks are drawn until the resample has about the original size.
+- The exclusion of winter 2018-19 applies to H1 only ("tests that compare winters"). H2, H4 and H5 use every winter day with the needed values, including the 78 days of 2018-19.
+- H1 resamples each group (earlier, later) separately with seeds 0 and 1. Per-winter secondary intervals use seed 0 plus the winter's start year.
+- H3 resamples local days (UTC+5) that have at least one valid winter PM2.5 hour, and takes every eligible hour of each drawn day. Wind speed is ERA5 `wind_speed_10m` in km/h, with the speed range 3 (excluded) to 10 (included).
+- H3 secondary regression: the "winter indicator" is constant because only winter hours are used, so it is left out; hours with PM2.5 of 0 are dropped from the log model.
+- H5 pairs consecutive days only inside a resampled block (never across the joins between blocks), and refits the regression in every resample.
+- Percentile bootstrap intervals are used throughout. For ratios with few observations (a single winter in the H4 secondary) they can be skewed.

@@ -17,6 +17,7 @@ For the person writing the final report. Each row says what can be claimed, wher
 | Weather: ERA5 (2018 to 2026) and archived forecasts from 2024-01-19 (previous-runs API) | `docs/datasets/data_sources.md`, notebook 05 |
 | Wind forecast bias about -2.5 km/h, fitted ratio about 1.5 | notebook 05, `src/aeron/features/bias.py` |
 | Exploratory patterns (winter wind, ventilation, boundary layer, wind direction) | notebook 03, figures in `reports/figures/` |
+| Hypothesis tests H1 to H5: wind and ventilation supported (Spearman -0.56 and -0.52), boundary layer height present but weak (-0.42), wind direction supported (+26.5 ug/m3), persistence reduction supported (0.158), weekday inconclusive (ratio 1.011, interval 0.880 to 1.110), winter difference not supported (+13.0, interval -3.3 to 26.4) | `reports/data_analysis/hypothesis_tests.md`, notebook 04 part B, `src/aeron/hypotheses.py`; frozen in `docs/research/hypotheses.md` (commit before the tests) |
 
 ## 3. Methods
 
@@ -57,7 +58,7 @@ Error analysis numbers: days at or above 100 are underpredicted by 40.6 / 53.8 /
 
 ## 6. Not done, and why
 
-`docs/research/limitations.md` (scope cuts and future work). The hypothesis tests of section 2.4 are not run, because `hypotheses.md` was never frozen; either run them (tests are specified in that file) or state that they were not done.
+`docs/research/limitations.md` (scope cuts and future work).
 
 ## 7. Figures
 

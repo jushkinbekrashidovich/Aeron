@@ -1,0 +1,22 @@
+id,block_days,test,estimate,lo_adj,hi_adj,lo_raw,hi_raw,n,decision
+H1,14,"H1 winters differ (later minus earlier, mean daily PM2.5, ug/m3)",13.0307,-3.277,26.4037,0.7173,22.2834,612,not supported (interval includes 0)
+H2a,14,H2a Spearman: PM2.5 and mean wind speed,-0.5625,-0.6149,-0.414,-0.594,-0.4463,690,supported
+H2b,14,H2b Spearman: PM2.5 and mean boundary layer height,-0.4171,-0.492,-0.1996,-0.4521,-0.2432,632,present but weak
+H2c,14,H2c Spearman: PM2.5 and ventilation index,-0.5147,-0.5898,-0.3409,-0.5632,-0.3754,632,supported
+H3,14,"H3 wind direction (E+NE minus N+NW, mean hourly PM2.5, ug/m3)",26.4625,13.9994,33.3529,16.0984,30.0158,8082,supported
+H4,14,H4 weekend over weekday ratio of mean daily PM2.5,1.0113,0.88,1.1099,0.9079,1.0736,690,inconclusive
+H5,14,H5 drop in lag-1 autocorrelation of log PM2.5 after removing same-day weather,0.1582,0.084,0.2475,0.0996,0.2141,632,supported
+H1,7,"H1 winters differ (later minus earlier, mean daily PM2.5, ug/m3)",13.0307,-1.122,24.9038,2.1659,21.687,612,not supported (interval includes 0)
+H2a,7,H2a Spearman: PM2.5 and mean wind speed,-0.5625,-0.6171,-0.4429,-0.5996,-0.4692,690,supported
+H2b,7,H2b Spearman: PM2.5 and mean boundary layer height,-0.4171,-0.5015,-0.2387,-0.4679,-0.275,632,present but weak
+H2c,7,H2c Spearman: PM2.5 and ventilation index,-0.5147,-0.5928,-0.3647,-0.5624,-0.3955,632,supported
+H3,7,"H3 wind direction (E+NE minus N+NW, mean hourly PM2.5, ug/m3)",26.4625,16.4979,34.3741,19.2055,32.1524,8082,supported
+H4,7,H4 weekend over weekday ratio of mean daily PM2.5,1.0113,0.8748,1.1154,0.9078,1.0782,690,inconclusive
+H5,7,H5 drop in lag-1 autocorrelation of log PM2.5 after removing same-day weather,0.1582,0.0769,0.253,0.094,0.2234,632,supported
+H1,28,"H1 winters differ (later minus earlier, mean daily PM2.5, ug/m3)",13.0307,-5.499,30.9443,1.6643,27.4961,612,not supported (interval includes 0)
+H2a,28,H2a Spearman: PM2.5 and mean wind speed,-0.5625,-0.576,-0.3335,-0.5462,-0.3616,690,supported
+H2b,28,H2b Spearman: PM2.5 and mean boundary layer height,-0.4171,-0.6054,-0.355,-0.5812,-0.4027,632,supported
+H2c,28,H2c Spearman: PM2.5 and ventilation index,-0.5147,-0.6645,-0.476,-0.6486,-0.5116,632,supported
+H3,28,"H3 wind direction (E+NE minus N+NW, mean hourly PM2.5, ug/m3)",26.4625,12.0286,29.7559,13.9541,27.5419,8082,supported
+H4,28,H4 weekend over weekday ratio of mean daily PM2.5,1.0113,0.9282,1.1427,0.9502,1.1093,690,inconclusive
+H5,28,H5 drop in lag-1 autocorrelation of log PM2.5 after removing same-day weather,0.1582,0.1034,0.2881,0.1298,0.2624,632,supported
