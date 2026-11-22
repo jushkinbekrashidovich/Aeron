@@ -50,6 +50,7 @@ class TreeModel:
         self.name = self.label
         self.uses_weather = self.feature_set != "history"
         self._columns: list[str] = []
+        self._model_columns: list[str] = []
         self._imputer: TrainOnlyImputer | None = None
         self._model = None
         self.chosen: dict | None = None
@@ -61,7 +62,10 @@ class TreeModel:
         x.index = pd.DatetimeIndex(rows["target_date"])
         if fit:
             self._imputer = TrainOnlyImputer(cutoff).fit(x)
-        return self._imputer.transform(x).to_numpy(dtype=float)
+        filled = self._imputer.transform(x)
+        if fit:
+            self._model_columns = list(filled.columns)
+        return filled.to_numpy(dtype=float)
 
     def _target(self, y: np.ndarray) -> np.ndarray:
         return np.log1p(y) if self.log_target else y
@@ -98,7 +102,7 @@ class TreeModel:
         values = getattr(self._model, "feature_importances_", None)
         if values is None:
             return pd.Series(dtype=float)
-        return pd.Series(values, index=self._columns).sort_values(ascending=False)
+        return pd.Series(values, index=self._model_columns).sort_values(ascending=False)
 
 
 def _random_forest(params: dict, seed: int) -> RandomForestRegressor:
@@ -121,4 +125,68 @@ def random_forest_models() -> list[TreeModel]:
         random_forest("history", "rf_history"),
         random_forest("forecast", "rf_forecast_weather"),
         random_forest("forecast_no_wind", "rf_forecast_no_wind"),
+    ]
+
+
+# ---------------------------------------------------------------------------
+# Gradient-boosted trees. The libraries are an optional extra (``pip install -e ".[trees]"``)
+# and are imported only when a model is built.
+# ---------------------------------------------------------------------------
+BOOST_GRID = tuple(
+    {"max_depth": depth, "learning_rate": rate}
+    for depth in (3, 5)
+    for rate in (0.03, 0.1)
+)
+
+
+def _xgboost(params: dict, seed: int):
+    from xgboost import XGBRegressor
+
+    return XGBRegressor(
+        n_estimators=300,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        min_child_weight=5,
+        objective="reg:absoluteerror",
+        n_jobs=1,
+        random_state=seed,
+        **params,
+    )
+
+
+def _lightgbm(params: dict, seed: int):
+    from lightgbm import LGBMRegressor
+
+    return LGBMRegressor(
+        n_estimators=300,
+        subsample=0.8,
+        subsample_freq=1,
+        colsample_bytree=0.8,
+        min_child_samples=10,
+        objective="l1",
+        n_jobs=1,
+        random_state=seed,
+        verbose=-1,
+        **params,
+    )
+
+
+def xgboost_model(feature_set: str, label: str, seed: int = 0) -> TreeModel:
+    return TreeModel(feature_set, label, _xgboost, BOOST_GRID, seed)
+
+
+def lightgbm_model(feature_set: str, label: str, seed: int = 0) -> TreeModel:
+    return TreeModel(feature_set, label, _lightgbm, BOOST_GRID, seed)
+
+
+def boosted_models() -> list[TreeModel]:
+    """XGBoost and LightGBM on the same feature sets as the forests."""
+    sets = (
+        ("history", "history"),
+        ("forecast", "forecast_weather"),
+        ("forecast_no_wind", "forecast_no_wind"),
+    )
+    return [
+        *(xgboost_model(fs, f"xgb_{tag}") for fs, tag in sets),
+        *(lightgbm_model(fs, f"lgbm_{tag}") for fs, tag in sets),
     ]

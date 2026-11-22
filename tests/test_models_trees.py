@@ -84,3 +84,21 @@ def test_runs_through_the_walk_forward_runner():
     blocks = splits.seasonal_blocks(2022, pd.Timestamp("2024-01-15").date())
     out = run_models(daily, [small_forest()], 1, blocks, "observed")
     assert not out.empty and out["rf"].notna().all()
+
+
+def test_boosted_models_fit_and_predict():
+    daily = synthetic_daily()
+    train, test = split_rows(daily)
+    ctx = context(daily)
+    grid = ({"max_depth": 3, "learning_rate": 0.1},)
+    for make in (trees._xgboost, trees._lightgbm):
+        model = trees.TreeModel("forecast", "boost", make, grid)
+        pred = model.fit(train, ctx).predict(test, ctx)
+        assert len(pred) == len(test)
+        assert np.isfinite(pred).all() and (pred >= 0).all()
+        assert not model.importances().empty
+
+
+def test_boosted_model_lists_have_distinct_names():
+    names = [m.name for m in trees.boosted_models()]
+    assert len(names) == len(set(names)) == 6
