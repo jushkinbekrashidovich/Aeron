@@ -1,0 +1,451 @@
+view,lead,input,mean_abs_shap,permutation_gain,group
+observed,1,hist_day_evening_mean,6.5011,3.2875,PM2.5 history
+observed,1,hist_pm_lag0,5.3722,1.4596,PM2.5 history
+observed,1,wxf_wind_mean,4.4165,1.3554,forecast weather for the target day
+observed,1,wxo_msl_mean_l0,1.6169,0.1509,weather observed up to today
+observed,1,wxf_wind_u,1.5776,0.3778,forecast weather for the target day
+observed,1,wxf_wind_v,1.4578,0.1868,forecast weather for the target day
+observed,1,hist_pm_roll14_mean,1.4389,0.0411,PM2.5 history
+observed,1,wxf_precip,1.321,0.4046,forecast weather for the target day
+observed,1,hist_day_max,1.2856,0.3029,PM2.5 history
+observed,1,hist_pm_roll7_mean,1.1628,0.0414,PM2.5 history
+observed,1,wxf_gust_max,0.9637,0.3186,forecast weather for the target day
+observed,1,wxf_temp_range,0.9479,0.3389,forecast weather for the target day
+observed,1,hist_pm_lag1,0.6812,0.0965,PM2.5 history
+observed,1,hist_pm_roll7_max,0.5955,0.1349,PM2.5 history
+observed,1,wxo_msl_mean_l1,0.5553,0.0486,weather observed up to today
+observed,1,wxf_msl_chg,0.5469,0.0936,forecast weather for the target day
+observed,1,wxo_temp_mean_l0,0.5352,0.1501,weather observed up to today
+observed,1,wxf_rain3,0.5027,0.1462,forecast weather for the target day
+observed,1,hist_pm_lag4,0.4866,0.0042,PM2.5 history
+observed,1,wxo_temp_mean_l1,0.4796,-0.04,weather observed up to today
+observed,1,hist_pm_trend7,0.4749,0.1006,PM2.5 history
+observed,1,time_doy_sin,0.4514,0.0698,calendar
+observed,1,wxf_temp_min,0.4211,-0.009,forecast weather for the target day
+observed,1,wxo_wind_mean_l1,0.4132,0.0059,weather observed up to today
+observed,1,hist_pm_lag2,0.3991,0.0235,PM2.5 history
+observed,1,time_doy_cos,0.3488,0.037,calendar
+observed,1,wxf_cloud_mean,0.3112,0.0811,forecast weather for the target day
+observed,1,hist_pm_roll7_std,0.3108,0.0146,PM2.5 history
+observed,1,wxf_temp_mean,0.3047,-0.0777,forecast weather for the target day
+observed,1,hist_pm_lag5,0.2915,0.0491,PM2.5 history
+observed,1,wxo_rain3_l0,0.2653,0.0064,weather observed up to today
+observed,1,wxo_rh_mean_l1,0.2413,-0.0009,weather observed up to today
+observed,1,wxf_vpd_mean,0.2362,-0.0082,forecast weather for the target day
+observed,1,wxo_wind_mean_l0,0.2303,0.0197,weather observed up to today
+observed,1,hist_pm_delta1,0.2294,-0.0244,PM2.5 history
+observed,1,wxf_rh_mean,0.2064,0.0299,forecast weather for the target day
+observed,1,wxf_pres_mean,0.202,0.0333,forecast weather for the target day
+observed,1,hist_pm_lag6,0.1951,0.0106,PM2.5 history
+observed,1,wxo_msl_chg_l0,0.1781,0.0306,weather observed up to today
+observed,1,hist_pm_lag3,0.1767,0.015,PM2.5 history
+observed,1,wxo_precip_l0,0.1717,0.0262,weather observed up to today
+observed,1,wxo_rh_mean_l0,0.1572,0.0387,weather observed up to today
+observed,1,wxo_precip_l1,0.1498,0.0237,weather observed up to today
+observed,1,wxf_temp_max,0.1494,-0.0275,forecast weather for the target day
+observed,1,time_month,0.1473,0.007,calendar
+observed,1,wxf_ssr_sum,0.1316,0.0073,forecast weather for the target day
+observed,1,wxo_msl_chg_l1,0.1285,-0.0128,weather observed up to today
+observed,1,wxf_msl_mean,0.1109,0.0083,forecast weather for the target day
+observed,1,wxo_rain3_l1,0.0965,0.0115,weather observed up to today
+observed,1,time_dow,0.0965,-0.0003,calendar
+observed,1,hist_day_hours,0.0396,-0.0046,PM2.5 history
+observed,1,time_weekend,0.0335,-0.0038,calendar
+observed,1,hist_pm_delta1__was_missing,0.0279,-0.0047,PM2.5 history
+observed,1,hist_pm_lag5__was_missing,0.0225,-0.0015,PM2.5 history
+observed,1,hist_pm_lag4__was_missing,0.0171,-0.0018,PM2.5 history
+observed,1,hist_pm_lag6__was_missing,0.0167,0.0044,PM2.5 history
+observed,1,hist_pm_lag1__was_missing,0.0136,0.0011,PM2.5 history
+observed,1,hist_pm_lag3__was_missing,0.0121,-0.0025,PM2.5 history
+observed,1,hist_day_evening_mean__was_missing,0.0092,0.0,PM2.5 history
+observed,1,hist_pm_roll14_mean__was_missing,0.0046,-0.0014,PM2.5 history
+observed,1,hist_pm_trend7__was_missing,0.0044,-0.0007,PM2.5 history
+observed,1,hist_day_max__was_missing,0.0023,0.0,PM2.5 history
+observed,1,hist_pm_lag2__was_missing,0.0021,0.0002,PM2.5 history
+observed,1,time_winter,0.0004,0.0,calendar
+observed,1,wxo_msl_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,1,wxo_precip_l1__was_missing,0.0,0.0,weather observed up to today
+observed,1,wxo_rain3_l1__was_missing,0.0,0.0,weather observed up to today
+observed,1,wxo_rh_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,1,wxo_wind_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,1,hist_pm_roll7_max__was_missing,0.0,0.0,PM2.5 history
+observed,1,wxo_temp_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,1,hist_pm_lag0__was_missing,0.0,0.0,PM2.5 history
+observed,1,hist_pm_roll7_std__was_missing,0.0,0.0,PM2.5 history
+observed,1,hist_pm_roll7_mean__was_missing,0.0,0.0,PM2.5 history
+observed,1,wxo_msl_chg_l1__was_missing,0.0,0.0,weather observed up to today
+observed,2,wxf_wind_mean,4.6991,1.6842,forecast weather for the target day
+observed,2,hist_pm_roll14_mean,3.6409,-0.0161,PM2.5 history
+observed,2,hist_pm_lag0,2.5845,0.4869,PM2.5 history
+observed,2,wxf_gust_max,2.5428,0.5317,forecast weather for the target day
+observed,2,wxo_msl_mean_l0,2.3092,0.1877,weather observed up to today
+observed,2,hist_day_evening_mean,2.2536,0.5054,PM2.5 history
+observed,2,wxf_wind_u,2.0966,0.8819,forecast weather for the target day
+observed,2,wxf_rain3,1.6845,0.4595,forecast weather for the target day
+observed,2,wxf_temp_range,1.4616,0.5145,forecast weather for the target day
+observed,2,wxf_wind_v,1.4377,0.2417,forecast weather for the target day
+observed,2,wxf_msl_chg,1.169,0.0785,forecast weather for the target day
+observed,2,wxo_msl_mean_l1,0.9429,0.106,weather observed up to today
+observed,2,wxf_temp_min,0.8839,0.1548,forecast weather for the target day
+observed,2,hist_pm_roll7_mean,0.8718,-0.0194,PM2.5 history
+observed,2,wxo_temp_mean_l0,0.8607,-0.0715,weather observed up to today
+observed,2,time_doy_sin,0.7066,0.1228,calendar
+observed,2,hist_day_max,0.7003,0.0541,PM2.5 history
+observed,2,hist_pm_lag1,0.687,0.0075,PM2.5 history
+observed,2,wxf_precip,0.651,0.1847,forecast weather for the target day
+observed,2,hist_pm_roll7_max,0.6209,0.048,PM2.5 history
+observed,2,time_doy_cos,0.4749,0.0107,calendar
+observed,2,wxf_temp_max,0.4661,0.0357,forecast weather for the target day
+observed,2,wxf_temp_mean,0.4384,0.0156,forecast weather for the target day
+observed,2,wxo_wind_mean_l0,0.4335,-0.0552,weather observed up to today
+observed,2,wxo_temp_mean_l1,0.4203,0.0363,weather observed up to today
+observed,2,wxo_wind_mean_l1,0.4025,0.0292,weather observed up to today
+observed,2,hist_pm_trend7,0.3934,0.0341,PM2.5 history
+observed,2,hist_pm_roll7_std,0.3869,-0.034,PM2.5 history
+observed,2,wxf_ssr_sum,0.3866,0.0067,forecast weather for the target day
+observed,2,hist_pm_delta1,0.3656,0.0288,PM2.5 history
+observed,2,wxo_rh_mean_l1,0.3269,0.0325,weather observed up to today
+observed,2,hist_pm_lag2,0.3141,0.0584,PM2.5 history
+observed,2,wxo_rain3_l1,0.3076,0.0197,weather observed up to today
+observed,2,hist_pm_lag3,0.2996,-0.0154,PM2.5 history
+observed,2,hist_pm_lag6,0.2886,-0.0145,PM2.5 history
+observed,2,wxf_pres_mean,0.2837,0.0229,forecast weather for the target day
+observed,2,hist_pm_lag4,0.2816,-0.0284,PM2.5 history
+observed,2,wxo_msl_chg_l0,0.2782,0.0449,weather observed up to today
+observed,2,wxf_cloud_mean,0.2676,0.0415,forecast weather for the target day
+observed,2,wxf_rh_mean,0.2519,0.0394,forecast weather for the target day
+observed,2,hist_pm_lag5,0.247,0.0634,PM2.5 history
+observed,2,wxo_rh_mean_l0,0.2463,0.0174,weather observed up to today
+observed,2,wxf_vpd_mean,0.2381,-0.0596,forecast weather for the target day
+observed,2,time_month,0.2363,-0.025,calendar
+observed,2,wxf_msl_mean,0.2123,0.0522,forecast weather for the target day
+observed,2,wxo_rain3_l0,0.176,0.0456,weather observed up to today
+observed,2,wxo_msl_chg_l1,0.1543,0.0339,weather observed up to today
+observed,2,wxo_precip_l0,0.1515,0.032,weather observed up to today
+observed,2,time_dow,0.1088,-0.0037,calendar
+observed,2,wxo_precip_l1,0.0861,0.0038,weather observed up to today
+observed,2,hist_day_hours,0.0753,-0.0048,PM2.5 history
+observed,2,hist_pm_lag5__was_missing,0.0488,-0.0077,PM2.5 history
+observed,2,time_weekend,0.029,0.0119,calendar
+observed,2,hist_pm_lag2__was_missing,0.0166,-0.0019,PM2.5 history
+observed,2,hist_pm_trend7__was_missing,0.0136,-0.0004,PM2.5 history
+observed,2,hist_pm_lag4__was_missing,0.0131,-0.0069,PM2.5 history
+observed,2,hist_pm_lag1__was_missing,0.0127,-0.0016,PM2.5 history
+observed,2,hist_pm_lag3__was_missing,0.0124,0.0102,PM2.5 history
+observed,2,hist_pm_roll14_mean__was_missing,0.011,-0.0019,PM2.5 history
+observed,2,hist_pm_delta1__was_missing,0.0021,0.0,PM2.5 history
+observed,2,hist_pm_lag6__was_missing,0.002,-0.0002,PM2.5 history
+observed,2,hist_pm_roll7_mean__was_missing,0.0019,0.0003,PM2.5 history
+observed,2,time_winter,0.0017,0.0,calendar
+observed,2,hist_day_max__was_missing,0.0016,0.0,PM2.5 history
+observed,2,hist_day_evening_mean__was_missing,0.0012,0.0,PM2.5 history
+observed,2,hist_pm_roll7_std__was_missing,0.0008,-0.0001,PM2.5 history
+observed,2,hist_pm_lag0__was_missing,0.0003,0.0,PM2.5 history
+observed,2,hist_pm_roll7_max__was_missing,0.0,0.0,PM2.5 history
+observed,2,wxo_temp_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,2,wxo_rh_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,2,wxo_wind_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,2,wxo_precip_l1__was_missing,0.0,0.0,weather observed up to today
+observed,2,wxo_rain3_l1__was_missing,0.0,0.0,weather observed up to today
+observed,2,wxo_msl_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,2,wxo_msl_chg_l1__was_missing,0.0,0.0,weather observed up to today
+observed,3,wxf_wind_mean,5.1987,2.0867,forecast weather for the target day
+observed,3,hist_pm_roll14_mean,3.3804,0.2131,PM2.5 history
+observed,3,wxf_gust_max,2.7963,0.8597,forecast weather for the target day
+observed,3,wxo_msl_mean_l0,2.5248,0.3062,weather observed up to today
+observed,3,wxf_rain3,2.3366,1.0806,forecast weather for the target day
+observed,3,wxf_wind_u,1.8449,0.7557,forecast weather for the target day
+observed,3,wxf_wind_v,1.3155,0.0802,forecast weather for the target day
+observed,3,hist_day_max,1.2457,0.0471,PM2.5 history
+observed,3,wxf_msl_chg,1.2341,0.3014,forecast weather for the target day
+observed,3,wxf_temp_range,1.2129,0.4609,forecast weather for the target day
+observed,3,time_doy_sin,1.1222,0.096,calendar
+observed,3,wxf_temp_min,0.9593,0.1519,forecast weather for the target day
+observed,3,wxo_msl_mean_l1,0.9547,0.0093,weather observed up to today
+observed,3,time_doy_cos,0.8408,-0.0145,calendar
+observed,3,hist_pm_roll7_mean,0.7688,-0.0303,PM2.5 history
+observed,3,hist_pm_lag0,0.6701,-0.0141,PM2.5 history
+observed,3,wxf_precip,0.6182,0.2454,forecast weather for the target day
+observed,3,hist_day_evening_mean,0.6136,-0.012,PM2.5 history
+observed,3,time_month,0.4979,-0.0297,calendar
+observed,3,hist_pm_roll7_max,0.4745,0.0784,PM2.5 history
+observed,3,wxo_temp_mean_l0,0.4554,0.0771,weather observed up to today
+observed,3,hist_pm_lag1,0.4382,0.085,PM2.5 history
+observed,3,wxf_temp_mean,0.4343,0.0888,forecast weather for the target day
+observed,3,hist_pm_delta1,0.4214,-0.0865,PM2.5 history
+observed,3,hist_pm_roll7_std,0.403,0.026,PM2.5 history
+observed,3,hist_pm_lag6,0.3947,0.0402,PM2.5 history
+observed,3,wxf_rh_mean,0.3935,0.033,forecast weather for the target day
+observed,3,wxf_msl_mean,0.3908,0.0786,forecast weather for the target day
+observed,3,hist_pm_lag2,0.3836,0.0202,PM2.5 history
+observed,3,wxo_wind_mean_l1,0.3835,0.0886,weather observed up to today
+observed,3,wxf_ssr_sum,0.383,-0.0162,forecast weather for the target day
+observed,3,wxo_wind_mean_l0,0.3592,-0.0277,weather observed up to today
+observed,3,wxo_rain3_l0,0.3535,-0.0267,weather observed up to today
+observed,3,wxf_pres_mean,0.3445,0.0585,forecast weather for the target day
+observed,3,wxf_temp_max,0.3183,-0.0316,forecast weather for the target day
+observed,3,wxo_temp_mean_l1,0.309,-0.0762,weather observed up to today
+observed,3,hist_pm_lag5,0.307,-0.0105,PM2.5 history
+observed,3,wxo_rain3_l1,0.3061,-0.0171,weather observed up to today
+observed,3,wxo_rh_mean_l1,0.3049,0.0355,weather observed up to today
+observed,3,wxf_vpd_mean,0.3044,-0.0292,forecast weather for the target day
+observed,3,hist_pm_lag3,0.2971,0.0409,PM2.5 history
+observed,3,hist_pm_lag4,0.2878,-0.0609,PM2.5 history
+observed,3,wxf_cloud_mean,0.2816,0.0968,forecast weather for the target day
+observed,3,wxo_msl_chg_l1,0.2767,-0.0166,weather observed up to today
+observed,3,wxo_rh_mean_l0,0.2746,0.0043,weather observed up to today
+observed,3,hist_pm_trend7,0.2536,-0.0348,PM2.5 history
+observed,3,wxo_msl_chg_l0,0.2515,0.0291,weather observed up to today
+observed,3,time_dow,0.1218,0.0032,calendar
+observed,3,wxo_precip_l1,0.1174,0.0296,weather observed up to today
+observed,3,wxo_precip_l0,0.0976,-0.0119,weather observed up to today
+observed,3,hist_day_hours,0.0693,-0.0286,PM2.5 history
+observed,3,time_winter,0.0631,0.0,calendar
+observed,3,hist_pm_lag4__was_missing,0.055,0.0157,PM2.5 history
+observed,3,hist_pm_lag3__was_missing,0.0204,0.0017,PM2.5 history
+observed,3,hist_pm_lag5__was_missing,0.019,0.0004,PM2.5 history
+observed,3,hist_pm_lag6__was_missing,0.0187,0.0114,PM2.5 history
+observed,3,time_weekend,0.0177,-0.0006,calendar
+observed,3,hist_pm_delta1__was_missing,0.0112,0.0032,PM2.5 history
+observed,3,hist_pm_lag1__was_missing,0.01,-0.0006,PM2.5 history
+observed,3,hist_pm_lag2__was_missing,0.0077,-0.0016,PM2.5 history
+observed,3,hist_pm_trend7__was_missing,0.0072,0.01,PM2.5 history
+observed,3,hist_day_evening_mean__was_missing,0.0071,-0.0002,PM2.5 history
+observed,3,hist_pm_roll14_mean__was_missing,0.0049,-0.0025,PM2.5 history
+observed,3,hist_pm_roll7_mean__was_missing,0.0037,0.0005,PM2.5 history
+observed,3,hist_pm_roll7_std__was_missing,0.0007,0.0,PM2.5 history
+observed,3,wxo_wind_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,3,wxo_rain3_l1__was_missing,0.0,0.0,weather observed up to today
+observed,3,wxo_msl_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,3,wxo_precip_l1__was_missing,0.0,0.0,weather observed up to today
+observed,3,hist_pm_roll7_max__was_missing,0.0,0.0,PM2.5 history
+observed,3,wxo_rh_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,3,wxo_temp_mean_l1__was_missing,0.0,0.0,weather observed up to today
+observed,3,hist_day_max__was_missing,0.0,0.0,PM2.5 history
+observed,3,hist_pm_lag0__was_missing,0.0,0.0,PM2.5 history
+observed,3,wxo_msl_chg_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,1,wxf_wind_mean,8.7598,0.412,forecast weather for the target day
+forecast,1,hist_day_evening_mean,8.7158,3.0839,PM2.5 history
+forecast,1,hist_pm_lag0,4.7472,1.4572,PM2.5 history
+forecast,1,wxf_gust_max,2.5803,0.234,forecast weather for the target day
+forecast,1,wxf_temp_range,2.0206,0.026,forecast weather for the target day
+forecast,1,hist_pm_roll7_mean,1.9687,-0.2805,PM2.5 history
+forecast,1,hist_pm_roll14_mean,1.9064,-0.0669,PM2.5 history
+forecast,1,wxo_msl_mean_l0,1.3332,0.2183,weather observed up to today
+forecast,1,wxf_precip,1.3261,0.3861,forecast weather for the target day
+forecast,1,hist_day_max,1.2134,-0.0108,PM2.5 history
+forecast,1,wxf_wind_v,1.0983,0.0157,forecast weather for the target day
+forecast,1,wxf_msl_chg,1.0357,-0.1379,forecast weather for the target day
+forecast,1,wxf_wind_u,0.8704,0.0308,forecast weather for the target day
+forecast,1,wxo_wind_mean_l1,0.8425,0.1392,weather observed up to today
+forecast,1,hist_pm_lag1,0.7691,-0.0361,PM2.5 history
+forecast,1,wxo_temp_mean_l0,0.6962,0.3712,weather observed up to today
+forecast,1,time_doy_sin,0.6831,0.0502,calendar
+forecast,1,time_doy_cos,0.5253,0.0463,calendar
+forecast,1,hist_pm_lag5,0.4559,0.034,PM2.5 history
+forecast,1,hist_pm_lag4,0.414,-0.0384,PM2.5 history
+forecast,1,hist_pm_roll7_max,0.4057,-0.0413,PM2.5 history
+forecast,1,wxf_cloud_mean,0.4053,0.0762,forecast weather for the target day
+forecast,1,hist_pm_lag2,0.3865,-0.0404,PM2.5 history
+forecast,1,hist_pm_trend7,0.3639,-0.0297,PM2.5 history
+forecast,1,wxf_rain3,0.3632,-0.3505,forecast weather for the target day
+forecast,1,wxf_temp_min,0.3426,0.0392,forecast weather for the target day
+forecast,1,wxf_rh_mean,0.2928,0.1621,forecast weather for the target day
+forecast,1,wxo_msl_mean_l1,0.2868,0.0458,weather observed up to today
+forecast,1,wxo_precip_l0,0.2657,-0.0234,weather observed up to today
+forecast,1,wxf_pres_mean,0.2655,0.0288,forecast weather for the target day
+forecast,1,hist_pm_lag6,0.248,0.0011,PM2.5 history
+forecast,1,wxo_rh_mean_l1,0.2441,0.0072,weather observed up to today
+forecast,1,wxo_temp_mean_l1,0.2407,0.0132,weather observed up to today
+forecast,1,wxo_rain3_l0,0.2405,0.0109,weather observed up to today
+forecast,1,hist_pm_roll7_std,0.2377,0.0231,PM2.5 history
+forecast,1,wxo_rh_mean_l0,0.237,-0.0032,weather observed up to today
+forecast,1,wxo_wind_mean_l0,0.2366,0.0015,weather observed up to today
+forecast,1,wxo_precip_l1,0.2166,-0.0044,weather observed up to today
+forecast,1,hist_pm_delta1,0.2152,-0.0931,PM2.5 history
+forecast,1,hist_pm_lag3,0.1965,0.0108,PM2.5 history
+forecast,1,wxo_msl_chg_l0,0.1916,-0.0123,weather observed up to today
+forecast,1,wxf_temp_mean,0.187,-0.0456,forecast weather for the target day
+forecast,1,wxf_msl_mean,0.1859,-0.0433,forecast weather for the target day
+forecast,1,wxo_msl_chg_l1,0.1852,0.0438,weather observed up to today
+forecast,1,wxf_ssr_sum,0.1639,0.0027,forecast weather for the target day
+forecast,1,wxf_temp_max,0.1573,0.0412,forecast weather for the target day
+forecast,1,time_month,0.1502,-0.0073,calendar
+forecast,1,wxo_rain3_l1,0.1307,0.0522,weather observed up to today
+forecast,1,wxf_vpd_mean,0.1144,0.0224,forecast weather for the target day
+forecast,1,time_dow,0.1109,-0.006,calendar
+forecast,1,time_weekend,0.0757,-0.01,calendar
+forecast,1,hist_day_hours,0.0652,-0.0003,PM2.5 history
+forecast,1,hist_pm_delta1__was_missing,0.0527,-0.0073,PM2.5 history
+forecast,1,hist_pm_lag5__was_missing,0.0251,0.0048,PM2.5 history
+forecast,1,hist_pm_lag1__was_missing,0.024,-0.0117,PM2.5 history
+forecast,1,hist_pm_lag3__was_missing,0.0223,-0.0041,PM2.5 history
+forecast,1,hist_day_evening_mean__was_missing,0.0169,0.0,PM2.5 history
+forecast,1,hist_pm_lag6__was_missing,0.0165,0.0059,PM2.5 history
+forecast,1,hist_pm_lag4__was_missing,0.0045,0.0001,PM2.5 history
+forecast,1,hist_pm_trend7__was_missing,0.004,0.0,PM2.5 history
+forecast,1,hist_pm_roll14_mean__was_missing,0.0021,0.0,PM2.5 history
+forecast,1,time_winter,0.0001,0.0,calendar
+forecast,1,wxo_temp_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,1,wxo_msl_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,1,wxo_rain3_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,1,wxo_precip_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,1,wxo_wind_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,1,wxo_rh_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,1,hist_pm_lag2__was_missing,0.0,0.0,PM2.5 history
+forecast,1,hist_day_max__was_missing,0.0,0.0,PM2.5 history
+forecast,1,hist_pm_roll7_max__was_missing,0.0,0.0,PM2.5 history
+forecast,1,hist_pm_roll7_std__was_missing,0.0,0.0,PM2.5 history
+forecast,1,hist_pm_roll7_mean__was_missing,0.0,0.0,PM2.5 history
+forecast,1,hist_pm_lag0__was_missing,0.0,0.0,PM2.5 history
+forecast,1,wxo_msl_chg_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,2,wxf_gust_max,7.6656,1.0454,forecast weather for the target day
+forecast,2,wxf_wind_mean,6.1398,0.175,forecast weather for the target day
+forecast,2,hist_pm_roll14_mean,4.5386,-0.131,PM2.5 history
+forecast,2,hist_pm_lag0,3.0775,-0.0951,PM2.5 history
+forecast,2,hist_day_evening_mean,2.8002,0.1267,PM2.5 history
+forecast,2,wxf_temp_range,2.404,0.2877,forecast weather for the target day
+forecast,2,wxo_msl_mean_l0,2.1735,0.004,weather observed up to today
+forecast,2,wxf_wind_u,1.5837,-0.1077,forecast weather for the target day
+forecast,2,wxf_rain3,1.5594,0.4281,forecast weather for the target day
+forecast,2,wxf_msl_chg,1.3515,0.0194,forecast weather for the target day
+forecast,2,time_doy_sin,1.1108,0.1115,calendar
+forecast,2,wxf_wind_v,1.0703,0.2031,forecast weather for the target day
+forecast,2,wxo_temp_mean_l0,1.0608,0.1318,weather observed up to today
+forecast,2,wxf_temp_min,0.9713,0.3123,forecast weather for the target day
+forecast,2,hist_pm_roll7_mean,0.8887,0.0237,PM2.5 history
+forecast,2,hist_day_max,0.8782,-0.3746,PM2.5 history
+forecast,2,hist_pm_lag1,0.7212,-0.1022,PM2.5 history
+forecast,2,time_doy_cos,0.6878,-0.0324,calendar
+forecast,2,wxo_wind_mean_l0,0.6809,-0.0326,weather observed up to today
+forecast,2,hist_pm_delta1,0.6633,0.0558,PM2.5 history
+forecast,2,hist_pm_roll7_max,0.6419,-0.0378,PM2.5 history
+forecast,2,wxo_temp_mean_l1,0.5932,0.1595,weather observed up to today
+forecast,2,hist_pm_trend7,0.5777,0.1391,PM2.5 history
+forecast,2,hist_pm_lag2,0.5407,0.1066,PM2.5 history
+forecast,2,wxo_msl_mean_l1,0.512,0.1049,weather observed up to today
+forecast,2,wxf_precip,0.4943,0.0906,forecast weather for the target day
+forecast,2,hist_pm_roll7_std,0.4403,0.0093,PM2.5 history
+forecast,2,wxf_temp_mean,0.3913,0.1178,forecast weather for the target day
+forecast,2,wxf_rh_mean,0.3898,0.0325,forecast weather for the target day
+forecast,2,hist_pm_lag5,0.3586,-0.0013,PM2.5 history
+forecast,2,hist_pm_lag3,0.3526,0.0615,PM2.5 history
+forecast,2,wxf_pres_mean,0.3424,0.1231,forecast weather for the target day
+forecast,2,wxf_ssr_sum,0.3381,-0.0211,forecast weather for the target day
+forecast,2,wxo_msl_chg_l0,0.325,0.0728,weather observed up to today
+forecast,2,hist_pm_lag6,0.3207,-0.01,PM2.5 history
+forecast,2,wxo_wind_mean_l1,0.3046,0.0472,weather observed up to today
+forecast,2,wxf_temp_max,0.3016,0.0489,forecast weather for the target day
+forecast,2,wxo_rain3_l0,0.2982,0.0168,weather observed up to today
+forecast,2,wxo_precip_l0,0.2812,-0.0212,weather observed up to today
+forecast,2,hist_pm_lag4,0.2776,-0.0063,PM2.5 history
+forecast,2,wxo_rh_mean_l1,0.2767,0.0977,weather observed up to today
+forecast,2,wxo_rain3_l1,0.2704,-0.0152,weather observed up to today
+forecast,2,wxo_rh_mean_l0,0.2677,0.0532,weather observed up to today
+forecast,2,wxf_vpd_mean,0.255,0.0697,forecast weather for the target day
+forecast,2,wxf_msl_mean,0.2379,0.0241,forecast weather for the target day
+forecast,2,wxf_cloud_mean,0.2325,0.0344,forecast weather for the target day
+forecast,2,time_month,0.1994,-0.0005,calendar
+forecast,2,wxo_msl_chg_l1,0.1696,-0.0529,weather observed up to today
+forecast,2,wxo_precip_l1,0.1317,-0.0244,weather observed up to today
+forecast,2,hist_day_hours,0.1172,0.0247,PM2.5 history
+forecast,2,time_weekend,0.116,0.0157,calendar
+forecast,2,time_dow,0.0643,-0.0013,calendar
+forecast,2,hist_pm_lag2__was_missing,0.042,-0.0062,PM2.5 history
+forecast,2,hist_pm_trend7__was_missing,0.0342,0.0004,PM2.5 history
+forecast,2,hist_pm_lag5__was_missing,0.0271,0.0062,PM2.5 history
+forecast,2,hist_pm_lag1__was_missing,0.0197,-0.0006,PM2.5 history
+forecast,2,hist_pm_roll14_mean__was_missing,0.0179,0.0,PM2.5 history
+forecast,2,hist_pm_lag4__was_missing,0.0076,-0.0005,PM2.5 history
+forecast,2,hist_day_max__was_missing,0.0051,0.0,PM2.5 history
+forecast,2,time_winter,0.0042,0.0,calendar
+forecast,2,hist_pm_lag3__was_missing,0.0035,0.0029,PM2.5 history
+forecast,2,hist_pm_lag6__was_missing,0.0005,0.0002,PM2.5 history
+forecast,2,hist_pm_roll7_std__was_missing,0.0004,0.0,PM2.5 history
+forecast,2,hist_pm_lag0__was_missing,0.0003,0.0,PM2.5 history
+forecast,2,hist_pm_delta1__was_missing,0.0001,0.0,PM2.5 history
+forecast,2,hist_pm_roll7_mean__was_missing,0.0,0.0,PM2.5 history
+forecast,2,hist_pm_roll7_max__was_missing,0.0,0.0,PM2.5 history
+forecast,2,hist_day_evening_mean__was_missing,0.0,0.0,PM2.5 history
+forecast,2,wxo_temp_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,2,wxo_rh_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,2,wxo_wind_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,2,wxo_precip_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,2,wxo_rain3_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,2,wxo_msl_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,2,wxo_msl_chg_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,3,wxf_gust_max,9.2955,1.2163,forecast weather for the target day
+forecast,3,wxf_wind_mean,7.9753,0.1648,forecast weather for the target day
+forecast,3,hist_pm_roll14_mean,4.0689,0.1206,PM2.5 history
+forecast,3,wxf_temp_range,2.5969,-0.3643,forecast weather for the target day
+forecast,3,wxo_msl_mean_l0,2.5221,0.3721,weather observed up to today
+forecast,3,wxf_rain3,2.4223,0.7333,forecast weather for the target day
+forecast,3,wxf_wind_u,1.7199,0.1642,forecast weather for the target day
+forecast,3,hist_day_max,1.672,-0.0876,PM2.5 history
+forecast,3,wxf_msl_chg,1.5348,0.0383,forecast weather for the target day
+forecast,3,hist_day_evening_mean,1.2477,0.0974,PM2.5 history
+forecast,3,time_doy_cos,1.1466,0.0676,calendar
+forecast,3,wxo_msl_mean_l1,1.1425,0.1124,weather observed up to today
+forecast,3,time_doy_sin,1.1108,0.058,calendar
+forecast,3,hist_pm_roll7_mean,1.1019,-0.005,PM2.5 history
+forecast,3,wxf_wind_v,1.02,-0.0957,forecast weather for the target day
+forecast,3,hist_pm_lag0,0.7224,0.0217,PM2.5 history
+forecast,3,wxf_temp_min,0.6984,0.2792,forecast weather for the target day
+forecast,3,wxf_msl_mean,0.6946,0.0367,forecast weather for the target day
+forecast,3,time_month,0.6897,-0.0108,calendar
+forecast,3,hist_pm_lag2,0.5646,0.0631,PM2.5 history
+forecast,3,wxf_rh_mean,0.5624,0.109,forecast weather for the target day
+forecast,3,wxo_wind_mean_l1,0.4967,-0.1169,weather observed up to today
+forecast,3,wxf_precip,0.4801,0.0954,forecast weather for the target day
+forecast,3,hist_pm_lag5,0.4597,-0.165,PM2.5 history
+forecast,3,wxf_ssr_sum,0.4462,-0.0176,forecast weather for the target day
+forecast,3,hist_pm_lag3,0.4408,-0.0688,PM2.5 history
+forecast,3,wxo_rain3_l0,0.4072,0.058,weather observed up to today
+forecast,3,hist_pm_roll7_max,0.3926,0.0287,PM2.5 history
+forecast,3,hist_pm_lag6,0.3837,-0.0327,PM2.5 history
+forecast,3,hist_pm_lag1,0.3815,-0.1026,PM2.5 history
+forecast,3,wxf_pres_mean,0.3707,0.1639,forecast weather for the target day
+forecast,3,wxo_temp_mean_l1,0.3635,0.0682,weather observed up to today
+forecast,3,hist_pm_roll7_std,0.3538,0.0828,PM2.5 history
+forecast,3,wxo_msl_chg_l1,0.3487,-0.0259,weather observed up to today
+forecast,3,hist_pm_trend7,0.3442,0.0156,PM2.5 history
+forecast,3,wxf_temp_max,0.3345,-0.0098,forecast weather for the target day
+forecast,3,wxf_cloud_mean,0.3259,0.0596,forecast weather for the target day
+forecast,3,hist_pm_delta1,0.3021,0.0643,PM2.5 history
+forecast,3,wxo_temp_mean_l0,0.2909,-0.0595,weather observed up to today
+forecast,3,wxo_rain3_l1,0.2879,0.0371,weather observed up to today
+forecast,3,wxo_wind_mean_l0,0.2798,0.0886,weather observed up to today
+forecast,3,hist_pm_lag4,0.2765,-0.0122,PM2.5 history
+forecast,3,wxo_msl_chg_l0,0.2665,0.1013,weather observed up to today
+forecast,3,wxf_temp_mean,0.2291,0.057,forecast weather for the target day
+forecast,3,wxo_rh_mean_l0,0.2153,0.0597,weather observed up to today
+forecast,3,wxf_vpd_mean,0.2101,0.0076,forecast weather for the target day
+forecast,3,wxo_rh_mean_l1,0.188,-0.1082,weather observed up to today
+forecast,3,wxo_precip_l1,0.175,0.0463,weather observed up to today
+forecast,3,time_winter,0.1659,0.0,calendar
+forecast,3,wxo_precip_l0,0.119,0.0107,weather observed up to today
+forecast,3,time_dow,0.0531,0.0085,calendar
+forecast,3,hist_pm_lag4__was_missing,0.0415,0.0262,PM2.5 history
+forecast,3,time_weekend,0.0409,0.0138,calendar
+forecast,3,hist_day_hours,0.0248,-0.002,PM2.5 history
+forecast,3,hist_pm_lag1__was_missing,0.0196,-0.0054,PM2.5 history
+forecast,3,hist_pm_lag3__was_missing,0.0178,-0.0101,PM2.5 history
+forecast,3,hist_pm_lag6__was_missing,0.0135,0.0006,PM2.5 history
+forecast,3,hist_pm_delta1__was_missing,0.0039,-0.0008,PM2.5 history
+forecast,3,hist_pm_lag2__was_missing,0.0024,0.0003,PM2.5 history
+forecast,3,hist_pm_roll7_std__was_missing,0.0023,0.0,PM2.5 history
+forecast,3,hist_pm_trend7__was_missing,0.0015,0.0,PM2.5 history
+forecast,3,hist_day_evening_mean__was_missing,0.0015,0.0,PM2.5 history
+forecast,3,hist_pm_roll7_mean__was_missing,0.0012,0.0,PM2.5 history
+forecast,3,hist_pm_lag5__was_missing,0.0009,-0.0002,PM2.5 history
+forecast,3,wxo_rh_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,3,wxo_msl_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,3,wxo_rain3_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,3,wxo_precip_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,3,wxo_wind_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,3,hist_day_max__was_missing,0.0,0.0,PM2.5 history
+forecast,3,wxo_temp_mean_l1__was_missing,0.0,0.0,weather observed up to today
+forecast,3,hist_pm_lag0__was_missing,0.0,0.0,PM2.5 history
+forecast,3,hist_pm_roll7_max__was_missing,0.0,0.0,PM2.5 history
+forecast,3,hist_pm_roll14_mean__was_missing,0.0,0.0,PM2.5 history
+forecast,3,wxo_msl_chg_l1__was_missing,0.0,0.0,weather observed up to today
