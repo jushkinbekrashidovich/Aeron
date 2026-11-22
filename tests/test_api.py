@@ -157,3 +157,15 @@ def test_service_reports_missing_data_and_model(tmp_path):
             == 503
         )
         assert c.get("/openapi.json").status_code == 200
+
+
+def test_cors_allows_the_frontend_origin_only(paths):
+    _, csv, model_dir = paths
+    settings = Settings(
+        daily_csv=csv, model_dir=model_dir, cors_origins=("http://localhost:3000",)
+    )
+    with TestClient(create_app(settings)) as c:
+        ok = c.get("/health", headers={"Origin": "http://localhost:3000"})
+        assert ok.headers["access-control-allow-origin"] == "http://localhost:3000"
+        other = c.get("/health", headers={"Origin": "http://evil.example"})
+        assert "access-control-allow-origin" not in other.headers

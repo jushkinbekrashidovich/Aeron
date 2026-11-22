@@ -19,13 +19,16 @@ class Settings:
         None  # one model version folder; None picks the latest replay model
     )
     models_root: Path = DEFAULT_MODELS
+    cors_origins: tuple[str, ...] = ("http://localhost:3000",)
 
     @classmethod
     def from_env(cls) -> Settings:
         daily = Path(os.environ.get("AERON_DAILY_CSV", DEFAULT_DAILY))
         model = os.environ.get("AERON_MODEL_DIR")
         root = Path(os.environ.get("AERON_MODELS_ROOT", DEFAULT_MODELS))
-        return cls(daily, Path(model) if model else None, root)
+        origins = os.environ.get("AERON_CORS_ORIGINS", "http://localhost:3000")
+        cors = tuple(o.strip() for o in origins.split(",") if o.strip())
+        return cls(daily, Path(model) if model else None, root, cors)
 
     def resolve_model_dir(self) -> Path | None:
         """The model folder to load: the one named, else the newest replay model."""

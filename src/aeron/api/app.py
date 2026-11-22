@@ -9,6 +9,7 @@ from typing import Annotated
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi.middleware.cors import CORSMiddleware
 
 from aeron.api import schemas
 from aeron.api.settings import Settings
@@ -95,6 +96,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             "ends on 2025-02-25, so no current forecast is possible."
         ),
         lifespan=lifespan,
+    )
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=list(settings.cors_origins),
+        allow_methods=["GET"],
+        allow_headers=[],
     )
 
     def state(request: Request) -> State:

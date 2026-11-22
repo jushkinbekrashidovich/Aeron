@@ -1,0 +1,36 @@
+import type { Metadata } from "next";
+
+import { Nav } from "@/components/Nav";
+
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "AERON: PM2.5 forecast replay for Tashkent",
+  description:
+    "Replay of one-to-three-day PM2.5 forecasts for Tashkent, with prediction ranges, the model's limits and the research behind it.",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className="h-full">
+      <body className="flex min-h-full flex-col bg-slate-50 text-slate-900 antialiased">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:rounded focus:bg-white focus:px-3 focus:py-2"
+        >
+          Skip to content
+        </a>
+        <Nav />
+        <main id="main" className="mx-auto w-full max-w-5xl flex-1 px-4 py-6">
+          {children}
+        </main>
+        <footer className="border-t border-slate-300 bg-white">
+          <p className="mx-auto max-w-5xl px-4 py-3 text-xs text-slate-700">
+            Research project. Not a public air quality service and not health advice. Replay of historical
+            data from one monitor.
+          </p>
+        </footer>
+      </body>
+    </html>
+  );
+}
