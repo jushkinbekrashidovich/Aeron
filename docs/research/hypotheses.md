@@ -1,6 +1,8 @@
 # Hypotheses (draft for review)
 
-Status: **draft, not yet registered.** Nothing in this document has been tested. After review, the hypotheses, thresholds and methods below are frozen before notebook 04 runs any test, and any change afterwards is recorded as a change with its reason.
+Status: **FROZEN on 2026-11-22, before any test was computed.** The project owner delegated the decision ("take proper action to continue the work yourself") after the AI recommended freezing the draft as written. No threshold, test, block length or scope was changed from the draft. The freeze is the git commit that contains this line; the test code and the results are committed afterwards. Any change from here on is recorded in the change log at the end of this document, with its reason, and results that depend on it are labelled.
+
+Section 6 (questions for review) is closed: the thresholds, the 14-day blocks with 99.29% Bonferroni intervals for 7 tests, and the scope of H1 to H5 stand as written.
 
 All hypotheses describe associations in observed data from one station (US Diplomatic Post, 2018-11 to 2025-02). None of them tests a cause.
 
@@ -98,3 +100,10 @@ These are reported as properties of the series, with no decision rule:
 1. Are the practical thresholds right (5 ug/m3 for winters, correlation -0.30, 10 ug/m3 for wind direction, a 10% margin for weekdays, 0.10 for the autocorrelation drop)? They are judgement calls, based on the forecast errors seen so far (16 to 19 ug/m3 for daily means).
 2. Is 14-day blocks with 99.29% Bonferroni intervals the right level of strictness for 7 tests?
 3. Should any hypothesis be dropped, or one added (for example for rain or surface pressure)?
+
+
+## 7. Change log after the freeze
+
+| Date | Change | Reason |
+|---|---|---|
+| 2026-11-22 | None yet. | |

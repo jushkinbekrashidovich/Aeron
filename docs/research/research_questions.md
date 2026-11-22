@@ -20,7 +20,7 @@ RQ8: Which features contribute most to the model's 24 hour forecasts, beyond rec
 
 ## Hypotheses
 
-Hypotheses are written down before testing, in the notebook or report that tests them, with the test and significance threshold. None are registered yet.
+Hypotheses are written down before testing, in the notebook or report that tests them, with the test and significance threshold. H1 to H5 in [hypotheses.md](hypotheses.md) were frozen on 2026-11-22 before any test was run.
 
 
 ## Status of the questions (2026-11-22)
