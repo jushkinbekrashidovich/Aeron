@@ -66,13 +66,38 @@ export class ApiError extends Error {
   }
 }
 
+/** How long to wait for the API before giving up and saying so. */
+export const TIMEOUT_MS = 15_000;
+
+export class TimeoutError extends Error {
+  constructor() {
+    super("timeout");
+  }
+}
+
 async function get<T>(path: string, params: Record<string, string> = {}, signal?: AbortSignal): Promise<T> {
   const url = new URL(path, API_URL);
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
-  const response = await fetch(url, { signal });
-  const body = await response.json().catch(() => null);
-  if (!response.ok) throw new ApiError(response.status, body?.detail ?? body);
-  return body as T;
+  const own = new AbortController();
+  let timedOut = false;
+  const timer = setTimeout(() => {
+    timedOut = true;
+    own.abort();
+  }, TIMEOUT_MS);
+  const relay = () => own.abort();
+  signal?.addEventListener("abort", relay);
+  try {
+    const response = await fetch(url, { signal: own.signal });
+    const body = await response.json().catch(() => null);
+    if (!response.ok) throw new ApiError(response.status, body?.detail ?? body);
+    return body as T;
+  } catch (error) {
+    if (timedOut) throw new TimeoutError();
+    throw error;
+  } finally {
+    clearTimeout(timer);
+    signal?.removeEventListener("abort", relay);
+  }
 }
 
 export const getRange = (signal?: AbortSignal) => get<ReplayRange>("/api/v1/replay/range", {}, signal);
@@ -84,10 +109,12 @@ export const getModel = (signal?: AbortSignal) => get<ModelCard>("/api/v1/model"
 
 /** A short message for the user from a failed request. */
 export function describeError(error: unknown): string {
+  if (error instanceof TimeoutError)
+    return `The service at ${API_URL} did not answer within ${TIMEOUT_MS / 1000} seconds. Check that the API is running.`;
   if (error instanceof ApiError) {
     if (error.status === 503) return "The service is running but has no data or model loaded yet.";
     if (error.status === 404) return "That day is not available for replay.";
     return `The service refused the request (${error.status}).`;
   }
-  return "The service could not be reached. Check that the API is running.";
+  return `The service at ${API_URL} could not be reached. Check that the API is running, and that this page is opened as http://localhost:3000.`;
 }

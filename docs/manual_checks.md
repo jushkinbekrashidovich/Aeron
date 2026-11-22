@@ -6,7 +6,7 @@ You need two terminals in the project folder.
 
 1. **Prepare once.** `source .venv/bin/activate`, then `python scripts/train_final.py --cutoff 2024-01-19 --tag replay` (about 5 seconds). This needs `data/processed/daily_us_embassy.csv`.
 2. **Terminal 1, the API.** `uvicorn aeron.api.app:create_app --factory --port 8000`. Open http://localhost:8000/health in a browser: it should show `"status": "ok"`. Open http://localhost:8000/docs: the endpoints should be listed, and "Try it out" on `/api/v1/forecast` with `origin=2024-12-22` should return three forecasts.
-3. **Terminal 2, the web app.** `cd frontend`, `npm install` (if it fails with a cache permission error use `npm install --cache /tmp/npm-cache`), then `npm run dev`. Open http://localhost:3000.
+3. **Terminal 2, the web app.** `cd frontend`, `npm install` (if it fails with a cache permission error use `npm install --cache /tmp/npm-cache`), then `npm run dev`. Open **http://localhost:3000** exactly. Do not use the "Network" address that `npm run dev` also prints (for example `http://172.20.10.3:3000`): Next.js blocks its page scripts on that address in development and the page stays on "Loading…", and the API only accepts requests from `localhost:3000`.
 
 ## What to look at
 
