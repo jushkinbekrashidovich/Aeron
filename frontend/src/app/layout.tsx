@@ -29,12 +29,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main" className="mx-auto w-full max-w-5xl flex-1 px-4 py-6">
           {children}
         </main>
-        <footer className="border-t border-slate-300 bg-white">
-          <p className="mx-auto max-w-5xl px-4 py-3 text-xs text-slate-700">
-            Research project. Not a public air quality service and not health advice. Replay of historical
-            data from one monitor.
-          </p>
-        </footer>
       </body>
     </html>
   );
