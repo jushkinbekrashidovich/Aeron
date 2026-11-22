@@ -95,3 +95,6 @@ out/
 .vscode/
 *.swp
 Thumbs.db
+
+# --- Trained model artifacts (rebuilt by scripts/train_final.py) ---
+artifacts/
