@@ -1,6 +1,6 @@
 # Data quality
 
-Status: draft (Phase 1). Findings from the data pulled on 2026-11-17, produced by the checks described below. A full quality assessment (notebook 02, flagged records, rule log) belongs to Phase 2. Variable definitions are in the [data dictionary](data_dictionary.md).
+Status: Phase 1 findings, kept as written. The full assessment is in notebook 02, `cleaning_log.md` and `missing_data_policy.md`. Findings from the data pulled on 2026-11-17, produced by the checks described below. A full quality assessment (notebook 02, flagged records, rule log) belongs to Phase 2. Variable definitions are in the [data dictionary](data_dictionary.md).
 
 ## US Diplomatic Post PM2.5 (OpenAQ, reference-grade)
 

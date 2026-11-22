@@ -1,11 +1,11 @@
 # Methodology
 
-Status: draft written at the end of Phase 1, based on the [feasibility report](feasibility_report.md). The target, horizons and single-station scope are confirmed. Phase 3 will implement them with tests, and the exploratory scripts in `src/aeron/` are not the final pipeline.
+Status: written at the end of Phase 1 from the [feasibility report](feasibility_report.md) and implemented in Phase 3 with tests (`src/aeron/evaluation/`, `src/aeron/features/`, `src/aeron/models/`). The target, horizons and single-station scope are confirmed. Where this text and the code differ, the code and the reports in `reports/model_evaluation/` are authoritative. The exploratory scripts in `src/aeron/` that ran before Phase 3 are not the final pipeline. The models actually compared were persistence, climatology, ridge regression, random forest, XGBoost and LightGBM; LightGBM on the forecast feature set is the headline model (`reports/model_evaluation/comparison.md`).
 
 ## 1. Task definition
 
 - **Target.** Daily mean PM2.5 (ug/m3) over the local day (Asia/Tashkent, UTC+5). A day counts only if at least 18 hourly values were observed. Secondary: hourly PM2.5.
-- **Events.** A daily mean at or above 55.5 ug/m3 (US EPA breakpoint, "unhealthy for sensitive groups" upper bound), and at or above 35.5 ug/m3 as a secondary threshold. Hourly analyses also use 100 ug/m3.
+- **Events.** A daily mean at or above 55.5 ug/m3 (the lower limit of the US EPA "Unhealthy" category for PM2.5), and at or above 35.5 ug/m3 as a secondary threshold. Hourly analyses also use 100 ug/m3.
 - **Forecast origin.** The end of local day O, using data observed up to that moment. Forecasts are for day O+1, O+2 and O+3. The main result is 1 day ahead.
 - **Station.** The US Diplomatic Post station (OpenAQ location 8881) until multi-station data becomes available.
 
@@ -56,9 +56,9 @@ Phase 3 adds unit tests for these rules.
 
 ## 8. Models
 
-- Gradient boosting (scikit-learn histogram version) as the first model, with fixed settings. Random forest, linear regression, XGBoost and LightGBM follow in Phase 3 with the same protocol.
-- Quantile and classification variants for upper-tail and exceedance forecasts.
-- Deep learning is deferred, because there are about 1,800 daily observations.
+- As carried out: ridge regression, random forest, XGBoost and LightGBM, each on three feature sets, with settings chosen on the last training year, under the same walk-forward protocol (`comparison.md`).
+- Exceedance forecasts use Platt-scaled and conformal probabilities from the point forecast rather than separate classifiers (`uncertainty.md`). Quantile models were not used.
+- Deep learning was skipped, because there are about 1,800 daily observations (`reports/model_evaluation/deep_learning_decision.md`).
 
 ## 9. Reporting rules
 

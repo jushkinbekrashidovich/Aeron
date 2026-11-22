@@ -1,6 +1,6 @@
 # Data sources
 
-Entries are marked **Assessed** (checked with a real download or query on the retrieval date given) or **Candidate** (not yet checked). Fields marked *to verify* are filled in during Phase 1 from the source's own documentation and from real queries, not from assumption. Do not treat this page as evidence that complete data exists for Tashkent.
+Status: the Phase 1 assessment is complete; the [feasibility report](../research/feasibility_report.md) holds the final judgement for each source. Entries are marked **Assessed** (checked with a real download or query on the retrieval date given) or **Candidate** (not yet checked). Fields marked *to verify* are filled in during Phase 1 from the source's own documentation and from real queries, not from assumption. Do not treat this page as evidence that complete data exists for Tashkent.
 
 ## Assessment template
 

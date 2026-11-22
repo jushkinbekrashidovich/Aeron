@@ -8,7 +8,9 @@ Air pollution is a recognized environmental concern in Tashkent, Uzbekistan. Cur
 
 Can PM2.5 concentrations in Tashkent be forecast 24 hours ahead (48 and 72 hours later, if the data supports it) from historical air-quality and weather data, and how accurate and reliable are those forecasts compared with simple baselines?
 
-## Why this is not yet answerable
+## Why this was not answerable at the start (resolved in Phase 1)
+
+Phase 1 established what data exists; see the [feasibility report](feasibility_report.md). The text below is the original reasoning.
 
 The answer depends on data whose availability for Tashkent is unknown: how many monitoring stations exist, how long they have reported, and how complete their records are. Phase 1 establishes this before any forecasting claim is made. If the data is too sparse for a horizon or a location, the project will report that.
 
