@@ -36,3 +36,14 @@ Collected from the analyses in this repository. Each item points to where the ev
 ## Scope cuts (decided by the project owner)
 
 Hourly forecasts, deep learning (LSTM, GRU), spatial interpolation, a database and scheduled refresh, hosted deployment and the map page are not done (`deep_learning_decision.md`, `spatial_decision.md`).
+
+## Future work
+
+Ordered by how much each would change what can be claimed.
+
+1. **More stations and winters.** Access to the city network data would allow station-level evaluation and leave-one-station-out spatial interpolation, and would answer RQ6. Another winter held out of all choices would give the confirmation this project lacks.
+2. **A current data source.** A live PM2.5 feed that is validated against the reference monitor (the one low-cost sensor compared read about 40% as high) would allow current forecasts.
+3. **Calibration with real forecasts.** Archived forecasts accumulate over time. Calibrating intervals and probabilities on days with real forecasts would remove the optimism of the observed-weather calibration year.
+4. **The highest days.** Models trained for the upper tail (quantile or event-focused objectives, or a separate regime model for stagnant winter days) could reduce the underprediction of days at or above 100 ug/m3. The preliminary error notes suggest this is where most of the error lies.
+5. **Hourly forecasts and sequence models.** Hourly targets give about 44,000 rows. Whether LSTM or GRU models help there was not tested.
+6. **Hosted demo** with the data owner's permission, a live refresh job and uptime monitoring (`docs/deployment.md`).

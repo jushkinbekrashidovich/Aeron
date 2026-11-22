@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "AERON: forecasting daily PM2.5 in Tashkent with prediction ranges (replay)"
+type: software
+authors:
+  - family-names: "Rashidovich"
+    given-names: "Jushkinbek"
+repository-code: "https://github.com/jushkinbekrashidovich/Aeron"
+license: MIT
+abstract: >-
+  Research code for one-to-three-day forecasts of the daily mean PM2.5 at the US Diplomatic Post
+  monitor in Tashkent, with conformal prediction ranges and exceedance probabilities, evaluated with
+  leak-free walk-forward testing. Single station; the measured series ends in February 2025.
+keywords:
+  - air quality
+  - PM2.5
+  - forecasting
+  - Tashkent
+  - conformal prediction
