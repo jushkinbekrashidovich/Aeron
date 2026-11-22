@@ -6,6 +6,6 @@ I built an end-to-end forecasting study for Tashkent, Uzbekistan, where winter s
 
 What I found, with the limits stated: on real archived weather forecasts, LightGBM reduced the average winter error from 24 to 17 µg/m³ at one day ahead against "tomorrow equals today", and the gain came mostly from weather inputs, not from the choice of model. The prediction ranges held for about 85% of winter days instead of the nominal 90%, and the model underpredicts the most polluted days. The data come from one monitor and end in February 2025, so the web app replays past forecasts and does not claim to be current.
 
-Skills shown: time-series evaluation without leakage, honest handling of small samples (block bootstrap, no multiple-comparison claims), uncertainty quantification, reproducible pipelines (tests, MLflow, CI), and writing results with their limits.
+Skills shown: time-series evaluation without leakage, honest handling of small samples (block bootstrap, no multiple-comparison claims), uncertainty quantification, reproducible pipelines (automated tests, MLflow experiment tracking), and writing results with their limits.
 
 Links: repository (see README); demo: none hosted (see `docs/deployment.md`).
