@@ -1,8 +1,11 @@
-# AERON
+# AERON is a machine learning project that forecasts the daily mean PM2.5 concentration in Tashkent, Uzbekistan. 24h, 48h and 72h ahead. 
 
-Forecasting daily PM2.5 air pollution in Tashkent, Uzbekistan, one to three days ahead, with prediction ranges and the chance of exceeding an alert level. A research project with a replay web app.
+## The project is planned to build in three stages (versions)
+### Stage 1 (completed). I built a forecasting model using hourly PM2.5 data from the US Embassy station, from November 2018 to 25. February 2025, together with weather data. The model was tested season by season, from November 2020 to February 2025. The most realistic test used the weather forecasts that were available at the time, from January 2024 to February 2025. The model's predictions were compared with the measured PM2.5 values and with simple reference forecasts.
 
-**Status:** research complete for the planned scope; the API and web app work in replay mode only. The measured PM2.5 series ends on 25 February 2025, so there is **no current forecast**. Read the [limitations](docs/research/limitations.md) before using any number.
+### Stage 2 (planned) I will include industrial construction in the hypothesis tests and extend the model with this information,
+  to show how industrial development in Tashkent is related to PM2.5 levels.
+### Stage 3 (planned) I will collect current PM2.5 data from the Tashkent opendata and adapt the model to forecast air quality in real time.
 
 ## What it does
 
