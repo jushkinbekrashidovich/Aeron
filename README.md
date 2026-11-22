@@ -3,6 +3,10 @@ AERON is a machine learning project that forecasts the daily mean PM2.5 concentr
 The project is planned to build in three stages (versions)
 ### Stage 1 (completed). 
 I built a forecasting model using hourly PM2.5 data from the US Embassy station, from November 2018 to 25. February 2025, together with weather data. The model was tested season by season, from November 2020 to February 2025. The most realistic test used the weather forecasts that were available at the time, from January 2024 to February 2025. The model's predictions were compared with the measured PM2.5 values and with simple reference forecasts.
+<img width="2150" height="1472" alt="image" src="https://github.com/user-attachments/assets/9f2aa9a4-3d63-4393-816e-d1ae30fceefa" />
+<img width="2008" height="1414" alt="image" src="https://github.com/user-attachments/assets/ea23edd6-624e-410f-a669-d5636b9b526e" />
+<img width="2052" height="1644" alt="image" src="https://github.com/user-attachments/assets/0422ad58-e532-42f8-a3ce-c0e0d570de4a" />
+
 
 ### Stage 2 (planned) 
 I will include industrial construction in the hypothesis tests and extend the model with this information,
