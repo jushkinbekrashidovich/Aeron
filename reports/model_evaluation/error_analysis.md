@@ -23,7 +23,8 @@ Source: `notebooks/07b_error_analysis.ipynb`; tables `error_by_level.csv` and `e
 - **Error follows how polluted the winter was.** The two most polluted winters (mean 66 to 67 ug/m3) have MAE 16.6 and 22.3; the two cleanest (50 to 54) have 11.4 and 12.6. With five winters this is a description, not a tested relation.
 - **Skill against persistence varies a lot by winter**: 0.10, 0.37, 0.23, 0.23, 0.42 at lead 1 (one minus the MAE ratio), and 0.19 to 0.53 at lead 3. In winter 2020-21 and 2023-24 the headline model is worse than ridge at lead 1 (12.6 against 10.9, and 22.3 against 20.5).
 - **March to October 2024 is the weak block**: MAE 7.8 against persistence 8.5, skill 0.08, the lowest of any March to October block (0.19 to 0.23). It is also the block with forecast-weather mismatch (see `comparison.md`).
-- The rolling 28-day MAE curve in `reports/figures/07b_rolling_mae.png` shows the error rising in each winter.
+- The rolling 28-day MAE curve in `reports/figures/07b_rolling_mae.png` shows the error rising in each winter, highest around December 2023 to January 2024 (about 43 for the headline model, persistence about 57). The curve has gaps where PM2.5 data are missing (mid-2022 to early 2023).
+- With real forecasts, from about October 2024 to mid-November 2024 both weather models are worse than persistence (rolling MAE about 20 to 25 against 13 to 15), after which they are better again. This is the same autumn 2024 period as the March to October 2024 block weakness and fits the forecast-weather mismatch, but the cause was not tested.
 
 ## Limits
 
