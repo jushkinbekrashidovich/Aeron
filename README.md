@@ -73,7 +73,7 @@ uvicorn aeron.api.app:create_app --factory --port 8000           # API, docs at 
 cd frontend && npm run dev                                       # web app at http://localhost:3000
 ```
 
-With Docker: `docker compose run --rm train`, then `docker compose up api`. The Docker files have not been built or run yet (see [deployment](docs/deployment.md)). Step-by-step browser and Docker checks: [manual checks](docs/manual_checks.md).
+There is no Docker setup: the project is a research study that runs locally (see [deployment](docs/deployment.md)). Step-by-step browser check: [manual checks](docs/manual_checks.md).
 
 ## Data sources
 

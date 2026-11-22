@@ -2,13 +2,14 @@
 
 ## Decision (task 7.1.1)
 
-**No hosted deployment.** The project runs locally and in containers on a developer machine. Reasons:
+**No hosted deployment and no containers.** The project runs locally on a developer machine. Reasons:
 
-- The service only replays 2024 to 2025 data from a series whose licence is not stated, so the data file cannot be published or baked into a public image.
+- The service only replays 2024 to 2025 data from a series whose licence is not stated, so the data file cannot be published or shipped in a public image.
 - Nothing needs a scheduled refresh: there is no live source (`docs/research/live_data_decision.md`).
 - A public site that looks like an air quality service could be misread as a current forecast.
+- Docker was planned but removed by the project owner on 2026-11-22: it would add nothing to a research project that is run locally, and the files could not be tested.
 
-A hosted demo would need the data owner's permission and a host that can mount a private data volume. That is future work.
+A hosted demo would need the data owner's permission and a host that can mount a private data folder. If that is ever wanted, packaging the API in a container is the usual route (the release `v0.1.0` still contains an untested Dockerfile). That is future work.
 
 ## Run locally
 
@@ -17,17 +18,6 @@ python scripts/train_final.py --cutoff 2024-01-19 --tag replay
 uvicorn aeron.api.app:create_app --factory --port 8000
 cd frontend && npm run dev
 ```
-
-## Run with containers (written, not yet built or run)
-
-Docker is not installed on the machine where this was written, so the `Dockerfile`, `docker-compose.yml` and the `container` job in CI have never run. Expect to fix small things on the first build.
-
-```
-docker compose run --rm train      # trains the replay model inside the image
-docker compose up api              # http://localhost:8000/docs
-```
-
-Data (`data/processed/daily_us_embassy.csv`) and models (`artifacts/models/`) are mounted, not baked in. Model files are made inside the image so that the library versions match when they are loaded.
 
 ## Configuration and secrets
 
@@ -44,14 +34,14 @@ The service itself needs no secret. `.env`, data, `mlruns/` and `artifacts/` are
 
 ## Health checks
 
-`GET /health` returns `ok` when data and model are loaded and `degraded` with a list of problems otherwise. In `degraded` state the forecast and history endpoints answer 503 with the same list. The container healthcheck uses this endpoint.
+`GET /health` returns `ok` when data and model are loaded and `degraded` with a list of problems otherwise. In `degraded` state the forecast and history endpoints answer 503 with the same list.
 
-## Redeploy and roll back
+## Update and roll back
 
 1. Train: `python scripts/train_final.py --cutoff 2024-01-19 --tag replay`. Each run writes a new folder `artifacts/models/<date>-replay-<data checksum>/` and never overwrites an older one.
 2. The API picks the newest replay folder. To pin a version, set `AERON_MODEL_DIR` to that folder and restart.
 3. **Roll back** by setting `AERON_MODEL_DIR` to the previous folder (or deleting the newest folder) and restarting the API. Each folder holds its own `model_card.json` with the code commit, data checksum, training period and known limits.
-4. For code, redeploy from a git tag or commit and rebuild the image.
+4. For code, check out a git tag or commit.
 5. Check `/health` and `/api/v1/model` (the model version) after any change.
 
 ## Monitoring
