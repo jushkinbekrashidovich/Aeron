@@ -97,6 +97,12 @@ See [data sources](docs/datasets/data_sources.md) and [data quality](docs/datase
 
 This is research code. Currently it is not an air quality warning system and not health advice.
 
+## AI Assistance
+
+AI tools were used as supplementary assistance during development, primarily 
+for coding, debugging, and documentation. All research decisions, validation, 
+and final conclusions made by the author.
+
 ## Cite
 
 See [CITATION.cff](CITATION.cff).
