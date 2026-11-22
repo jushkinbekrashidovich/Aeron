@@ -54,6 +54,6 @@ Winter days, threshold 55.5 ug/m3 (observed rate 45%). Brier score (lower is bet
 3. With real forecasts the calibration year is optimistic. Platt probabilities are overconfident and March to October 2024 coverage is 74%. A calibration period that uses archived forecasts would fix this, but they exist for only about 13 months.
 4. The highest days remain hard: few observations at or above 100 ug/m3 are available for calibration, and the point forecast underpredicts them (error analysis).
 
-## Recommendation for deployment (Phase 5)
+## Decision for deployment (Phase 5)
 
-Use the level-scaled 90% interval and report the 80% interval alongside it. State the winter coverage found here (about 85%), not the nominal 90%. For the probability of an exceedance, prefer the conformal probability over Platt scaling when the input is a real weather forecast, since it was better calibrated in the realistic case. Platt scaling was the approved method; this is a proposed change for the owner to confirm.
+Use the level-scaled 90% interval and report the 80% interval alongside it. State the winter coverage found here (about 85%), not the nominal 90%. For the probability of an exceedance, use the **conformal probability** rather than Platt scaling: it was better calibrated with real weather forecasts, the realistic case. Platt scaling was the method first chosen; the project owner confirmed the change to conformal on 2026-11-22. The API still returns both values, with conformal marked as the recommended one, and the web app shows only the conformal probability.

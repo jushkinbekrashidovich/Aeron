@@ -7,7 +7,7 @@ Forecasting daily PM2.5 air pollution in Tashkent, Uzbekistan, one to three days
 ## What it does
 
 - Forecasts the **daily mean PM2.5** (local day, UTC+5) at one monitor, the US Diplomatic Post (OpenAQ location 8881), at 1, 2 and 3 days ahead, issued at the end of each day.
-- Gives a 90% and 80% **prediction range** (conformal intervals) and the **probability** that the daily mean reaches 55.5 µg/m³ (the start of the EPA "Unhealthy" category) or 35.5.
+- Gives a 90% and 80% **prediction range** (conformal intervals) and the **probability** (conformal, better calibrated than Platt scaling with real forecasts) that the daily mean reaches 55.5 µg/m³ (the start of the EPA "Unhealthy" category) or 35.5.
 - Serves historical **replays** through an API and a web app: pick a past day, see what the model would have predicted using only information available then, and what was measured.
 
 ## Main results
@@ -73,7 +73,7 @@ uvicorn aeron.api.app:create_app --factory --port 8000           # API, docs at 
 cd frontend && npm run dev                                       # web app at http://localhost:3000
 ```
 
-With Docker: `docker compose run --rm train`, then `docker compose up api`. The Docker files have not been built or run yet (see [deployment](docs/deployment.md)).
+With Docker: `docker compose run --rm train`, then `docker compose up api`. The Docker files have not been built or run yet (see [deployment](docs/deployment.md)). Step-by-step browser and Docker checks: [manual checks](docs/manual_checks.md).
 
 ## Data sources
 

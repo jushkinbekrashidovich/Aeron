@@ -13,8 +13,17 @@ NOTICE = (
 
 
 class Probabilities(BaseModel):
-    conformal: float = Field(ge=0, le=1)
-    platt: float = Field(ge=0, le=1)
+    conformal: float = Field(
+        ge=0,
+        le=1,
+        description="Recommended. Share of calibration errors that would reach the level; "
+        "better calibrated than Platt when the input is a real weather forecast.",
+    )
+    platt: float = Field(
+        ge=0,
+        le=1,
+        description="Platt-scaled logistic probability. Kept for comparison; overconfident with real forecasts.",
+    )
 
 
 class LeadForecast(BaseModel):
