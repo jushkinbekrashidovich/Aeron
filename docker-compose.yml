@@ -1,0 +1,41 @@
+# Local development.
+#
+#   1. Build the processed data first (scripts/download_data.py ... build_dataset.py), so that
+#      data/processed/daily_us_embassy.csv exists.
+#   2. Train the replay model inside the image:   docker compose run --rm train
+#   3. Start the API:                             docker compose up api
+#   4. Open http://localhost:8000/docs
+#
+# On Linux the container user (uid 10001) must be able to write to ./artifacts/models
+# (for example chmod a+rwx artifacts/models); Docker Desktop on macOS needs nothing.
+#
+# The API starts without data or a model, but then answers 503 and /health says "degraded".
+services:
+  api:
+    build: .
+    image: aeron-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/processed:/app/data/processed:ro
+      - ./artifacts/models:/app/artifacts/models:ro
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').status == 200 else 1)"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  train:
+    build: .
+    image: aeron-api
+    profiles: ["train"]
+    # Replay model: trained only on targets up to the day before archived forecasts begin.
+    command: ["python", "scripts/train_final.py", "--cutoff", "2024-01-19", "--tag", "replay"]
+    volumes:
+      - ./data/processed:/app/data/processed:ro
+      - ./artifacts/models:/app/artifacts/models
