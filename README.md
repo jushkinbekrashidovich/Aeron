@@ -1,15 +1,17 @@
-# AERON is a machine learning project that forecasts the daily mean PM2.5 concentration in Tashkent, Uzbekistan. 24h, 48h and 72h ahead. 
+# About
+AERON is a machine learning project that forecasts the daily mean PM2.5 concentration in Tashkent, Uzbekistan. 24h, 48h and 72h ahead. 
+The project is planned to build in three stages (versions)
+### Stage 1 (completed). 
+I built a forecasting model using hourly PM2.5 data from the US Embassy station, from November 2018 to 25. February 2025, together with weather data. The model was tested season by season, from November 2020 to February 2025. The most realistic test used the weather forecasts that were available at the time, from January 2024 to February 2025. The model's predictions were compared with the measured PM2.5 values and with simple reference forecasts.
 
-## The project is planned to build in three stages (versions)
-### Stage 1 (completed). I built a forecasting model using hourly PM2.5 data from the US Embassy station, from November 2018 to 25. February 2025, together with weather data. The model was tested season by season, from November 2020 to February 2025. The most realistic test used the weather forecasts that were available at the time, from January 2024 to February 2025. The model's predictions were compared with the measured PM2.5 values and with simple reference forecasts.
-
-### Stage 2 (planned) I will include industrial construction in the hypothesis tests and extend the model with this information,
+### Stage 2 (planned) 
+I will include industrial construction in the hypothesis tests and extend the model with this information,
   to show how industrial development in Tashkent is related to PM2.5 levels.
-### Stage 3 (planned) I will collect current PM2.5 data from the Tashkent opendata and adapt the model to forecast air quality in real time.
+### Stage 3 (planned) 
+I will collect current PM2.5 data from the Tashkent opendata and adapt the model to forecast air quality in real time.
 
-## What it does
-
-- Forecasts the **daily mean PM2.5** (local day, UTC+5) at one monitor, the US Diplomatic Post (OpenAQ location 8881), at 1, 2 and 3 days ahead, issued at the end of each day.
+## Stage 1 ( data from November 2020 to February 2025 )
+- Forecasts the **daily mean PM2.5** (local day, UTC+5) at one station, the US Diplomatic Post (OpenAQ location 8881), at 1, 2 and 3 days ahead, issued at the end of each day.
 - Gives a 90% and 80% **prediction range** (conformal intervals) and the **probability** (conformal, better calibrated than Platt scaling with real forecasts) that the daily mean reaches 55.5 µg/m³ (the start of the EPA "Unhealthy" category) or 35.5.
 - Serves historical **replays** through an API and a web app: pick a past day, see what the model would have predicted using only information available then, and what was measured.
 
@@ -89,7 +91,7 @@ See [data sources](docs/datasets/data_sources.md) and [data quality](docs/datase
 
 ## Not a health service
 
-This is research code. It is not an air quality warning system and not health advice.
+This is research code. Currently it is not an air quality warning system and not health advice.
 
 ## Cite
 
