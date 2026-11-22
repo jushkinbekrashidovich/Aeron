@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pytest
 
 from aeron.evaluation import splits
 from aeron.evaluation.runner import run_models
@@ -102,3 +103,65 @@ def test_boosted_models_fit_and_predict():
 def test_boosted_model_lists_have_distinct_names():
     names = [m.name for m in trees.boosted_models()]
     assert len(names) == len(set(names)) == 6
+
+
+def test_lag_filter_keeps_only_requested_history():
+    from aeron.models import ablations
+
+    cols = [
+        "hist_pm_lag0",
+        "hist_pm_lag1",
+        "hist_pm_lag2",
+        "hist_pm_roll7_mean",
+        "hist_day_max",
+        "time_month",
+    ]
+    assert ablations.lag_filter(1, False)(cols) == [
+        "hist_pm_lag0",
+        "hist_day_max",
+        "time_month",
+    ]
+    assert "hist_pm_roll7_mean" in ablations.lag_filter(2, True)(cols)
+    assert "hist_pm_lag2" not in ablations.lag_filter(2, True)(cols)
+
+
+def with_biased_wind(forecast_from):
+    daily = synthetic_daily(forecast_from=forecast_from)
+    daily["era5_wind_mean"] = 5 + daily["era5_wind_mean"]
+    daily["fc_lead1_wind_mean"] = (0.8 * daily["era5_wind_mean"]).where(
+        daily.index >= forecast_from
+    )
+    return daily
+
+
+def test_wind_correction_uses_only_training_days_and_scales_wind():
+    daily = with_biased_wind("2022-06-01")
+    ctx = context(daily)
+    train, test = split_rows(daily)
+    model = small_forest()
+    model.wind_bias = True
+    model.fit(train, ctx)
+    assert model.wind_ratio == pytest.approx(1.25)
+    scaled = model._correct(test)
+    assert np.allclose(
+        scaled["wxf_wind_mean"], test["wxf_wind_mean"] * model.wind_ratio
+    )
+    assert np.array_equal(scaled["wxf_temp_mean"], test["wxf_temp_mean"])
+    # the ratio is a function of training rows only
+    future = daily.copy()
+    future.loc[future.index >= "2023-11-01", "era5_wind_mean"] *= 5
+    future.loc[future.index >= "2023-11-01", "fc_lead1_wind_mean"] *= 2
+    train2, _ = split_rows(future)
+    again = small_forest()
+    again.wind_bias = True
+    again.fit(train2, ctx)
+    assert again.wind_ratio == model.wind_ratio
+
+
+def test_wind_correction_is_skipped_without_enough_forecast_days():
+    daily = with_biased_wind("2023-10-20")
+    train, _ = split_rows(daily)
+    model = small_forest()
+    model.wind_bias = True
+    model.fit(train, context(daily))
+    assert model.wind_ratio is None

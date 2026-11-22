@@ -21,11 +21,12 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 
 from aeron.evaluation.splits import train_validation_split
-from aeron.features import feature_columns, observed_as_forecast
+from aeron.features import bias, feature_columns, observed_as_forecast
 from aeron.imputation import TrainOnlyImputer
 from aeron.models.baselines import Context
 
 VALIDATION_DAYS = 365
+WIND_SCALED = ("wind_mean", "gust_max", "wind_u", "wind_v")  # km/h quantities
 RF_GRID = tuple(
     {"max_depth": depth, "min_samples_leaf": leaf}
     for depth in (6, 12)
@@ -43,6 +44,8 @@ class TreeModel:
     grid: Sequence[dict]
     seed: int = 0
     log_target: bool = False
+    columns_filter: Callable[[list[str]], list[str]] | None = None
+    wind_bias: bool = False
     name: str = field(init=False)
     uses_weather: bool = field(init=False)
 
@@ -54,6 +57,7 @@ class TreeModel:
         self._imputer: TrainOnlyImputer | None = None
         self._model = None
         self.chosen: dict | None = None
+        self.wind_ratio: float | None = None
 
     def _matrix(
         self, rows: pd.DataFrame, fit: bool, cutoff: pd.Timestamp | None = None
@@ -75,8 +79,14 @@ class TreeModel:
         return np.clip(pred, 0, None)
 
     def fit(self, train: pd.DataFrame, context: Context) -> TreeModel:
-        train = observed_as_forecast(train[train["y"].notna()])
+        train = train[train["y"].notna()]
+        self.wind_ratio = (
+            self._fit_wind_ratio(train, context) if self.wind_bias else None
+        )
+        train = observed_as_forecast(train)
         self._columns = feature_columns(list(train.columns), self.feature_set)
+        if self.columns_filter is not None:
+            self._columns = self.columns_filter(self._columns)
         x = self._matrix(train, fit=True, cutoff=context.test_start)
         y = train["y"].to_numpy(dtype=float)
         fit_idx, val_idx = train_validation_split(
@@ -95,7 +105,24 @@ class TreeModel:
         self._model.fit(x, self._target(y))
         return self
 
+    @staticmethod
+    def _fit_wind_ratio(train: pd.DataFrame, context: Context) -> float | None:
+        """Observed over forecast wind on training days that have a real archived forecast."""
+        days = pd.DatetimeIndex(train["target_date"])
+        forecast = pd.Series(train["wxf_wind_mean"].to_numpy(), index=days)
+        observed = pd.Series(train["wxt_wind_mean"].to_numpy(), index=days)
+        return bias.fit_ratio(forecast, observed, context.test_start)
+
+    def _correct(self, test: pd.DataFrame) -> pd.DataFrame:
+        if self.wind_ratio is None:
+            return test
+        test = test.copy()
+        for name in WIND_SCALED:
+            test[f"wxf_{name}"] = test[f"wxf_{name}"] * self.wind_ratio
+        return test
+
     def predict(self, test: pd.DataFrame, context: Context) -> np.ndarray:
+        test = self._correct(test)
         return self._back(self._model.predict(self._matrix(test, fit=False)))
 
     def importances(self) -> pd.Series:
