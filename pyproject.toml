@@ -18,6 +18,8 @@ dev = ["ruff", "pytest"]
 tracking = ["mlflow-skinny>=3.0", "sqlalchemy>=2.0", "alembic>=1.13"]
 # Gradient-boosted trees (XGBoost, LightGBM) for the model comparison.
 trees = ["xgboost>=2.0", "lightgbm>=4.0"]
+# HTTP service (replay API) and its tests.
+api = ["fastapi>=0.110", "uvicorn>=0.29", "httpx>=0.27", "joblib>=1.3"]
 notebooks = ["matplotlib>=3.8", "ipykernel", "nbclient", "nbformat", "statsmodels>=0.14"]
 
 [tool.setuptools.packages.find]

@@ -24,6 +24,7 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 
 import joblib
+import numpy as np
 import pandas as pd
 
 from aeron.evaluation.splits import train_validation_split
@@ -54,10 +55,22 @@ class LeadModel:
     n_calibration: int
 
 
-def train_final(daily: pd.DataFrame, lead: int, make_model=headline_model) -> LeadModel:
-    """Fit the model and the interval calibrator for one lead on all rows with a target."""
+def train_final(
+    daily: pd.DataFrame,
+    lead: int,
+    make_model=headline_model,
+    cutoff: str | pd.Timestamp | None = None,
+) -> LeadModel:
+    """Fit the model and the interval calibrator for one lead on rows with a target.
+
+    With ``cutoff`` only rows whose target day is on or before it are used. A replay of
+    later days is then out-of-sample for this model.
+    """
     table = build_features(daily, lead)
-    rows = table[table["y"].notna() & table["y_origin"].notna()].reset_index(drop=True)
+    rows = table[table["y"].notna() & table["y_origin"].notna()]
+    if cutoff is not None:
+        rows = rows[rows["target_date"] <= pd.Timestamp(cutoff)]
+    rows = rows.reset_index(drop=True)
     series = daily["pm25_mean"].copy()
     series.index = pd.DatetimeIndex(series.index)
     last_target = pd.Timestamp(rows["target_date"].max())
@@ -92,14 +105,15 @@ def _git(root: Path, *args: str) -> str | None:
     return out.stdout.strip()
 
 
-def version_id(daily_path: Path | None, root: Path) -> str:
-    """Version string from the build date and the data checksum, e.g. ``20261121-ab12cd34ef56``."""
+def version_id(daily_path: Path | None, tag: str = "") -> str:
+    """Version string from the build date, an optional tag and the data checksum."""
     checksum = (_sha256(daily_path) if daily_path else None) or "nodata"
-    return f"{datetime.now(UTC):%Y%m%d}-{checksum}"
+    middle = f"-{tag}" if tag else ""
+    return f"{datetime.now(UTC):%Y%m%d}{middle}-{checksum}"
 
 
 def model_card(
-    models: dict[int, LeadModel], version: str, root: Path, daily_path
+    models: dict[int, LeadModel], version: str, root: Path, daily_path, cutoff=None
 ) -> dict:
     first = next(iter(models.values()))
     commit = _git(root, "rev-parse", "--short", "HEAD")
@@ -116,6 +130,7 @@ def model_card(
         "git_dirty": "unknown" if dirty is None else bool(dirty),
         "data_daily_sha256": _sha256(daily_path) if daily_path else None,
         "last_training_target_date": str(first.last_target_date.date()),
+        "training_cutoff": None if cutoff is None else str(pd.Timestamp(cutoff).date()),
         "per_lead": {
             str(lead): {
                 "training_rows": m.n_train,
@@ -145,18 +160,38 @@ def save(
     root: Path,
     daily_path: Path | None = None,
     evaluation: dict | None = None,
+    tag: str = "",
+    cutoff=None,
 ) -> Path:
     """Write models and the model card under ``directory/<version>/`` and return that path."""
-    version = version_id(daily_path, root)
+    version = version_id(daily_path, tag)
     target = directory / version
     target.mkdir(parents=True, exist_ok=True)
     for lead, m in models.items():
         joblib.dump(m, target / f"lead{lead}.joblib", compress=3)
-    card = model_card(models, version, root, daily_path)
+    card = model_card(models, version, root, daily_path, cutoff)
     if evaluation:
         card["evaluation"] = evaluation
     (target / "model_card.json").write_text(json.dumps(card, indent=2, default=str))
     return target
+
+
+def known_at(daily: pd.DataFrame, origin) -> pd.DataFrame:
+    """The daily table as it was known at the end of ``origin``.
+
+    PM2.5 and observed weather after the origin are removed. The archived weather
+    forecasts (``fc_lead*`` columns) on the target days, up to three days later, are kept
+    because they were issued before the origin.
+    """
+    origin = pd.Timestamp(origin).normalize()
+    out = daily.copy()
+    out.index = pd.DatetimeIndex(out.index)
+    out = out.loc[: origin + pd.Timedelta(days=max(LEADS))].copy()
+    after = out.index > origin
+    for column in out.columns:
+        if not column.startswith("fc_lead"):
+            out.loc[after, column] = np.nan
+    return out
 
 
 class ForecastService:

@@ -33,13 +33,7 @@ def trained():
 
 
 def known_on(daily: pd.DataFrame, origin: str) -> pd.DataFrame:
-    """The table as it would look at the end of the origin day: no PM2.5 or observed weather after it."""
-    out = daily.loc[: pd.Timestamp(origin) + pd.Timedelta(days=3)].copy()
-    after = out.index > pd.Timestamp(origin)
-    for column in out.columns:
-        if not column.startswith("fc_lead"):
-            out.loc[after, column] = np.nan
-    return out
+    return forecast.known_at(daily, origin)
 
 
 def test_save_and_load_round_trip(trained, tmp_path):
@@ -116,3 +110,22 @@ def test_training_needs_enough_history():
     daily = synthetic_daily(n=600)
     with pytest.raises(ValueError):
         forecast.train_final(daily, 1, small_forest)
+
+
+def test_cutoff_keeps_later_targets_out_of_training():
+    daily = synthetic_daily(n=1700)
+    full = forecast.train_final(daily, 1, small_forest)
+    early = forecast.train_final(daily, 1, small_forest, cutoff="2024-12-31")
+    assert early.last_target_date == pd.Timestamp("2024-12-31")
+    assert early.n_train < full.n_train
+    changed = daily.copy()
+    changed.loc[changed.index > "2024-12-31", "pm25_mean"] = 500.0
+    again = forecast.train_final(changed, 1, small_forest, cutoff="2024-12-31")
+    table = known_on(daily, "2025-03-01")
+    a = forecast.ForecastService({1: early}, {"version": "t"}).forecast(
+        table, "2025-03-01"
+    )
+    b = forecast.ForecastService({1: again}, {"version": "t"}).forecast(
+        table, "2025-03-01"
+    )
+    assert a["forecasts"][1]["forecast"] == b["forecasts"][1]["forecast"]
